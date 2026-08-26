@@ -1,3 +1,0 @@
-/root/projects/minecraft-client/.build/CMakeFiles/lpteam.dir
-/root/projects/minecraft-client/.build/CMakeFiles/edit_cache.dir
-/root/projects/minecraft-client/.build/CMakeFiles/rebuild_cache.dir
