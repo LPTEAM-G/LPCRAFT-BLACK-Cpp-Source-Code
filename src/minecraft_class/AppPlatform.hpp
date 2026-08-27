@@ -6,7 +6,7 @@
 class AppPlatform
 {
 public:
-	static std::string& HOME_PATH(unsigned long base) noexcept;
+	static std::string& get_home_path(unsigned long base) noexcept;
 };
 
 #endif

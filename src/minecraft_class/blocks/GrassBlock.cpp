@@ -1,6 +1,6 @@
 #include <dlfcn.h>
 #include "minecraft_class/blocks/GrassBlock.hpp"
-#include "tools.hpp"
+#include "hook_macro.hpp"
 
 GrassBlock::getTextureInWorldFuncType GrassBlock::getTextureInWorldOrig = nullptr;
 

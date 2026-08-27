@@ -1,18 +1,26 @@
+//Copyright (c) 2026 LPTEAM
 #ifndef MINECRAFT_CLASS_LEVELRENDERER_HPP
 #define MINECRAFT_CLASS_LEVELRENDERER_HPP
 
 class LevelRenderer
 {
 private:
-	static unsigned long lib_base;
+
+	enum layer_index
+	{
+		slime_blocks = 6,
+		water = 7,
+	};
 	
 public:
-	using renderCloudsFuncType = void(*)(LevelRenderer*, float);
-	static renderCloudsFuncType renderCloudsOrig;
+	using renderCloudsType = void(*)(LevelRenderer*, float);
+	using renderChunksType = void(*)(LevelRenderer*, layer_index, float, bool);
 
-	static bool should_not_render_clouds(LevelRenderer* this_ptr) noexcept;
+	static renderCloudsType renderCloudsOrig;
+	static renderChunksType renderChunksOrig;
+
 	static void renderClouds(LevelRenderer* this_ptr, float);
-	static void renderCloudsImpl(LevelRenderer* this_ptr, float) noexcept;
+	static void renderChunks(LevelRenderer* this_ptr, layer_index layer, float a3, bool flag);
 	static void install(void* handler, unsigned long base) noexcept;
 };
 

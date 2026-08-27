@@ -1,6 +1,6 @@
 #include "LiquidBlock.hpp"
 #include "minecraft_class/TextureUVCoordinateSet.hpp"
-#include "tools.hpp"
+#include "hook_macro.hpp"
 #include <dlfcn.h>
 
 LiquidBlock::getTextureFuncType LiquidBlock::getTextureOrig = nullptr;

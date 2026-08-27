@@ -1,44 +1,25 @@
+//Copyright (c) 2026 LPTEAM
 #include "LevelRenderer.hpp"
-#include "tools.hpp"
-#include <cstdint>
+#include "hook_macro.hpp"
 #include <dlfcn.h>
-#include <string>
-#include "mce/Mesh.hpp"
-#include "mce/RenderContext.hpp"
-#include "mce/RenderContextImmediate.hpp"
 
-unsigned long LevelRenderer::lib_base = 0;
+LevelRenderer::renderCloudsType LevelRenderer::renderCloudsOrig = nullptr;
+LevelRenderer::renderChunksType LevelRenderer::renderChunksOrig = nullptr;
 
-LevelRenderer::renderCloudsFuncType LevelRenderer::renderCloudsOrig = nullptr;
-
-int sub_430D24(void** a1, void** a2, int a3);
-
-bool LevelRenderer::should_not_render_clouds(LevelRenderer* this_ptr) noexcept
+void LevelRenderer::renderClouds(LevelRenderer *this_ptr, float time)
 {
-	return *(bool*)((int)this_ptr + 5528);
+	renderCloudsOrig(this_ptr, time);
 }
 
-void LevelRenderer::renderClouds(LevelRenderer *this_ptr, float p)
+void LevelRenderer::renderChunks(LevelRenderer* this_ptr, layer_index layer, float a3, bool flag)
 {
-	if (not should_not_render_clouds(this_ptr))
-	{
-		
-		//renderCloudsImpl(this_ptr, p);
-		renderCloudsOrig(this_ptr, p);
-	}
-}
-
-
-void LevelRenderer::renderCloudsImpl(LevelRenderer *this_ptr, float p) noexcept
-{
-	using func = void(*)(LevelRenderer*);
-	func f = (func)(lib_base + 0x495350 + 1);
-	f(this_ptr);
+	renderChunksOrig(this_ptr, layer, a3, flag);
 }
 
 void LevelRenderer::install(void* handler, unsigned long base) noexcept
 {
-	lib_base = base;
-	void* target = dlsym(handler, "_ZN13LevelRenderer12renderCloudsEf");
-	MSHook(target, renderClouds, renderCloudsOrig);
+	void* renderCloudsTarget = dlsym(handler, "_ZN13LevelRenderer12renderCloudsEf");
+	MSHook(renderCloudsTarget, renderClouds, renderCloudsOrig);
+	void* renderChunksTarget = dlsym(handler, "_ZN13LevelRenderer12renderChunksE12TerrainLayerfb");
+	MSHook(renderChunksTarget, renderChunks, renderChunksOrig);
 }

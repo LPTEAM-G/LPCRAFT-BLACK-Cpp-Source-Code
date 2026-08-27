@@ -14,27 +14,52 @@ set(ANDROIDEABI_INC "${NDK_HOME}/sysroot/usr/include/arm-linux-androideabi/")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --sysroot=${CMAKE_SYSROOT} -isystem ${SYSROOT_INC} -isystem ${GNUSTL_INC} -isystem ${GNUSTL_INC_ABI} -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=softfp")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --sysroot=${CMAKE_SYSROOT} -isystem ${SYSROOT_INC} -isystem ${GNUSTL_INC} -isystem ${GNUSTL_INC_ABI} -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=softfp")
 
-file(GLOB_RECURSE LPTEAM_SOURCES
-	# Hook逻辑主体
-    "src/*.c"
-    "src/*.cpp"
-    "src/*.cc"
-    # MSHook
-    "lib/Substrate/*.c"
-    "lib/Substrate/*.cpp"
-    "lib/Substrate/*.cc"
-    # XHook
-    "lib/xHook/*.c"
-    "lib/xHook/*.cpp"
-    "lib/xHook/*.cc"
+#[[static library - MShook]]
+file(GLOB_RECURSE MSHOOK_SOURCES
+	"lib/Substrate/*.c"
+	"lib/Substrate/*.cpp"
+	"lib/Substrate/*.cc"
 )
-add_library(lpteam SHARED ${LPTEAM_SOURCES})
-target_include_directories(lpteam PRIVATE "lib" "src" ${ANDROIDEABI_INC})
-set_target_properties(lpteam PROPERTIES POSITION_INDEPENDENT_CODE ON)
+add_library(
+	mshook STATIC
+	${MSHOOK_SOURCES}
+)
 
-target_link_libraries(lpteam
-    log
-    gnustl_shared
+target_include_directories(
+	mshook PUBLIC
+	"lib"
+	${ANDROIDEABI_INC}
+)
+
+#[[The shared library we need to generate]]
+file(GLOB_RECURSE LPTEAM_SOURCES
+	"src/*.c"
+	"src/*.cpp"
+	"src/*.cc"
+)
+add_library(
+	lpteam SHARED
+	${LPTEAM_SOURCES}
+)
+
+target_include_directories(
+	lpteam PRIVATE
+	"lib"
+	"src"
+	${ANDROIDEABI_INC}
+)
+
+set_target_properties(
+	lpteam PROPERTIES
+	POSITION_INDEPENDENT_CODE ON
+)
+
+target_link_libraries(
+	lpteam PRIVATE
+	EGL
+	log
+	gnustl_shared
+	mshook
 )
 
 target_link_directories(
@@ -43,13 +68,13 @@ target_link_directories(
 )
 
 target_link_options(lpteam PRIVATE
-    --sysroot=${CMAKE_SYSROOT}
-    -march=armv7-a
+	--sysroot=${CMAKE_SYSROOT}
+	-march=armv7-a
 )
 
 set_target_properties(lpteam PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out"
-    OUTPUT_NAME "lpteam"
+	LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out"
+	OUTPUT_NAME "lpteam"
 )
 
 message(STATUS "Output: liblpteam.so will be in ${CMAKE_SOURCE_DIR}/out")

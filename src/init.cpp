@@ -1,9 +1,9 @@
+#include "glsl.hpp"
 #include "minecraft_class/AppPlatform.hpp"
 #include "minecraft_class/BlockTessellator.hpp"
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "minecraft_class/blocks/LiquidBlock.hpp"
-#include "xHook/xhook.h"
 #include <cstdio>
 #include <dlfcn.h>
 #include <jni.h>
@@ -30,18 +30,17 @@ void change_game_path(unsigned base) noexcept;
 extern "C" JNIEXPORT jint JNICALL
 JNI_OnLoad(JavaVM *vm, void *reserved)
 {
+	LOGI("Shared Library liblpteam.so Loaded");
 	game_lib_handler = get_game_lib_handler();
 	game_lib_base = get_game_lib_base();
 
 	change_game_path(game_lib_base);
-	
+
+	glsl::install();
 	BlockTessellator::install(game_lib_handler, game_lib_base);
 	GrassBlock::install(game_lib_handler);
 	LiquidBlock::install(game_lib_handler);
 	LevelRenderer::install(game_lib_handler, game_lib_base);
-
-	//安装完所有Hook后启动XHook
-	xhook_refresh(0);
 	
 	return JNI_VERSION_1_6;
 }
@@ -69,6 +68,6 @@ unsigned long get_game_lib_base() noexcept
 
 void change_game_path(unsigned base) noexcept
 {
-	std::string& path = AppPlatform::HOME_PATH(base);
+	std::string& path = AppPlatform::get_home_path(base);
 	path = "/minecraft-clients/lpcraft-black/";
 }
