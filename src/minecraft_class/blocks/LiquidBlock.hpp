@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #ifndef MINECRAFT_CLASS_BLOCKS_LIQUIDBLOCK_HPP
 #define MINECRAFT_CLASS_BLOCKS_LIQUIDBLOCK_HPP
 
@@ -10,7 +11,7 @@ public:
 	static getTextureFuncType getTextureOrig;
 
 	static TextureUVCoordinateSet* getTexture(LiquidBlock* this_ptr, signed char);
-	static void install(void* handler) noexcept;
+	static void install() noexcept;
 };
 
 #endif

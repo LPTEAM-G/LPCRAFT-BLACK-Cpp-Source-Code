@@ -1,6 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #include "LevelRenderer.hpp"
 #include "hook_macro.hpp"
+#include "init.hpp"
 #include <dlfcn.h>
 
 LevelRenderer::renderCloudsType LevelRenderer::renderCloudsOrig = nullptr;
@@ -16,10 +17,10 @@ void LevelRenderer::renderChunks(LevelRenderer* this_ptr, layer_index layer, flo
 	renderChunksOrig(this_ptr, layer, a3, flag);
 }
 
-void LevelRenderer::install(void* handler, unsigned long base) noexcept
+void LevelRenderer::install() noexcept
 {
-	void* renderCloudsTarget = dlsym(handler, "_ZN13LevelRenderer12renderCloudsEf");
+	void* renderCloudsTarget = dlsym(minecraft_app::game_lib_handler, "_ZN13LevelRenderer12renderCloudsEf");
 	MSHook(renderCloudsTarget, renderClouds, renderCloudsOrig);
-	void* renderChunksTarget = dlsym(handler, "_ZN13LevelRenderer12renderChunksE12TerrainLayerfb");
+	void* renderChunksTarget = dlsym(minecraft_app::game_lib_handler, "_ZN13LevelRenderer12renderChunksE12TerrainLayerfb");
 	MSHook(renderChunksTarget, renderChunks, renderChunksOrig);
 }

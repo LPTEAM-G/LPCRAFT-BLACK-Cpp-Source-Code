@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #ifndef MINECRAFT_CLASS_BLOCKS_GRASSBLOCK_HPP
 #define MINECRAFT_CLASS_BLOCKS_GRASSBLOCK_HPP
 
@@ -11,10 +12,9 @@ public:
 	using getTextureInWorldFuncType = TextureUVCoordinateSet* (*)(GrassBlock*, BlockSource*, const BlockPos*, signed char);
 	static getTextureInWorldFuncType getTextureInWorldOrig;
 
-	static TextureUVCoordinateSet* getTextureInWorld(GrassBlock* this_ptr, BlockSource* block_source, const BlockPos* pos_in_world, signed char face);
-	static void install(void* handler) noexcept;
+	static TextureUVCoordinateSet* get_texture_in_world(GrassBlock* this_ptr, BlockSource* block_source, const BlockPos* pos_in_world, signed char face);
+
+	static void install() noexcept;
 };
-
-
 
 #endif

@@ -21,7 +21,7 @@ public:
 
 	static void renderClouds(LevelRenderer* this_ptr, float);
 	static void renderChunks(LevelRenderer* this_ptr, layer_index layer, float a3, bool flag);
-	static void install(void* handler, unsigned long base) noexcept;
+	static void install() noexcept;
 };
 
 #endif

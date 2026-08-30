@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #ifndef GLSL_HPP
 #define GLSL_HPP
 

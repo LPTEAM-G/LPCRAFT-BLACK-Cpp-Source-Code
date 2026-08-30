@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "glsl.hpp"
 #include <dlfcn.h>
 #include <EGL/egl.h>

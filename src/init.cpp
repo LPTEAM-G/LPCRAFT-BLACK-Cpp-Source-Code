@@ -1,5 +1,10 @@
+//Copyright (c) 2026 LPTEAM
+#include "init.hpp"
 #include "glsl.hpp"
+#include "log_lib.hpp"
+#include "minecraft_class/AmbientOcclusionCalculator.hpp"
 #include "minecraft_class/AppPlatform.hpp"
+#include "minecraft_class/BlockSource.hpp"
 #include "minecraft_class/BlockTessellator.hpp"
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
@@ -7,40 +12,37 @@
 #include <cstdio>
 #include <dlfcn.h>
 #include <jni.h>
-#include <android/log.h>
 #include <cstring>
 #include <string>
 #include <unistd.h>
 
-#define LOG_TAG "LPTEAM"
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-
 //保存游戏库的句柄
-void* game_lib_handler = nullptr;
+void* minecraft_app::game_lib_handler = nullptr;
 //保存游戏库的基址
-unsigned long game_lib_base = 0;
+unsigned long minecraft_app::game_lib_base = 0;
 
 void* get_game_lib_handler() noexcept;
 unsigned long get_game_lib_base() noexcept;
 
 //修改游戏的path
-void change_game_path(unsigned base) noexcept;
+void change_game_path() noexcept;
 
 extern "C" JNIEXPORT jint JNICALL
 JNI_OnLoad(JavaVM *vm, void *reserved)
 {
 	LOGI("Shared Library liblpteam.so Loaded");
-	game_lib_handler = get_game_lib_handler();
-	game_lib_base = get_game_lib_base();
+	minecraft_app::game_lib_handler = get_game_lib_handler();
+	minecraft_app::game_lib_base = get_game_lib_base();
 
-	change_game_path(game_lib_base);
-
+	change_game_path();
+	
 	glsl::install();
-	BlockTessellator::install(game_lib_handler, game_lib_base);
-	GrassBlock::install(game_lib_handler);
-	LiquidBlock::install(game_lib_handler);
-	LevelRenderer::install(game_lib_handler, game_lib_base);
+	BlockSource::install();
+	AmbientOcclusionCalculator::install();
+	BlockTessellator::install();
+	GrassBlock::install();
+	LiquidBlock::install();
+	LevelRenderer::install();
 	
 	return JNI_VERSION_1_6;
 }
@@ -66,8 +68,8 @@ unsigned long get_game_lib_base() noexcept
 	return base;
 }
 
-void change_game_path(unsigned base) noexcept
+void change_game_path() noexcept
 {
-	std::string& path = AppPlatform::get_home_path(base);
+	std::string& path = AppPlatform::get_home_path();
 	path = "/minecraft-clients/lpcraft-black/";
 }
