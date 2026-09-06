@@ -2,9 +2,10 @@
 #ifndef MINECRAFT_CLASS_AMBIENTOCCLUSIONCALCULATOR_HPP
 #define MINECRAFT_CLASS_AMBIENTOCCLUSIONCALCULATOR_HPP
 
-//向前声明
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/BlockPos.hpp"
+
+//向前声明
 class BlockTessellator;
 
 class AmbientOcclusionCalculator
@@ -13,7 +14,7 @@ public:
 	using calculateType = int(*)(AmbientOcclusionCalculator*, signed char face, bool);
 	static calculateType calculateOrig;
 
-	BlockTessellator* get_BlockTessellator_ptr() noexcept;
+	BlockTessellator* get_block_tessellator() noexcept;
 	Block* get_block() noexcept;
 	BlockPos* get_block_pos() noexcept;
 	void set_tint_sides(bool should_set) noexcept;

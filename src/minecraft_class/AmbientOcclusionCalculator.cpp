@@ -1,17 +1,16 @@
 //Copyright (c) 2026 LPTEAM
 #include "AmbientOcclusionCalculator.hpp"
-#include "init.hpp"
+#include "minecraft_app.hpp"
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/BlockPos.hpp"
 #include "minecraft_class/BlockSource.hpp"
 #include "minecraft_class/BlockTessellator.hpp"
 #include <cstdint>
-#include <dlfcn.h>
 #include <hook_macro.hpp>
 
 AmbientOcclusionCalculator::calculateType AmbientOcclusionCalculator::calculateOrig = nullptr;
 
-BlockTessellator* AmbientOcclusionCalculator::get_BlockTessellator_ptr() noexcept
+BlockTessellator* AmbientOcclusionCalculator::get_block_tessellator() noexcept
 {
 	return (BlockTessellator*)(*(uintptr_t*)((uintptr_t)this + 28) - 772);
 }
@@ -40,9 +39,9 @@ int AmbientOcclusionCalculator::calculate(AmbientOcclusionCalculator* this_ptr, 
 		//如果是草方块
 		if (block == Block::get_block_table()[2])
 		{
-			BlockTessellator* bt = this_ptr->get_BlockTessellator_ptr();
-			BlockSource* bs = BlockTessellator::get_block_source(bt);
-			if (BlockSource::is_snowed(bs, this_ptr->get_block_pos()))
+			BlockTessellator* bt = this_ptr->get_block_tessellator();
+			BlockSource* bs = bt->get_block_source();
+			if (bs->is_snowed( this_ptr->get_block_pos()))
 			{
 				this_ptr->set_tint_sides(false);
 			}
@@ -56,6 +55,7 @@ int AmbientOcclusionCalculator::calculate(AmbientOcclusionCalculator* this_ptr, 
 
 void AmbientOcclusionCalculator::install() noexcept
 {
-	void* calculateTarget = dlsym(minecraft_app::game_lib_handler, "_ZN26AmbientOcclusionCalculator9calculateEab");
+	//_ZN26AmbientOcclusionCalculator9calculateEab
+	void* calculateTarget = minecraft_app::get_lib_thumb_function_ptr(0x39EEC4);
 	MSHook(calculateTarget, calculate, calculateOrig);
 }

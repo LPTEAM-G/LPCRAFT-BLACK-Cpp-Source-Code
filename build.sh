@@ -62,6 +62,7 @@ case "$1" in
 			echo -e "\033[0;31;1mError\033[0m: Please run $0 --init first."
 			exit 1
 		fi
+		"$0" --command
 		cd "$BUILD_DIR"
 		make -j"$(nproc)" lpteam
 		echo ""

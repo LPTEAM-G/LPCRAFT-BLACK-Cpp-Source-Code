@@ -1,6 +1,6 @@
 //Copyright (c) 2026 LPTEAM
 #include "Block.hpp"
-#include "init.hpp"
+#include "minecraft_app.hpp"
 #include "minecraft_class/Material.hpp"
 #include <cstdint>
 

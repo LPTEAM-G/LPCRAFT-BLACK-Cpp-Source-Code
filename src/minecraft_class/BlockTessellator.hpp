@@ -22,9 +22,6 @@ private:
 		turn_on_mode = 0x0121
 	};
 
-	//草方块侧面的刷新状态
-	static void flush_grass_block_sides(tessellate_block_flush_mode mode) noexcept;
-	
 public:
 	using _getTextureFuncType = TextureUVCoordinateSet*(*)(BlockTessellator*, Block*, const BlockPos*, signed char);
 	static _getTextureFuncType _getTextureOrig;
@@ -32,9 +29,12 @@ public:
 	using tessellateBlockInWorldWithAmbienceOcclusionType = int(*)(BlockTessellator*, Block*, BlockPos*, const Color*, const BlockOccluder*);
 	static tessellateBlockInWorldWithAmbienceOcclusionType tessellateBlockInWorldWithAmbienceOcclusionTypeOrig;
 
-	static BlockSource* get_block_source(BlockTessellator* this_ptr) noexcept;
+	//--- Hooked Functions ---//
 	static int tessellate_block_in_world_with_ambience_occlusion(BlockTessellator* this_ptr, Block* block, BlockPos* pos, const Color* color, const BlockOccluder* occluder);
 	static TextureUVCoordinateSet* _get_texture(BlockTessellator* this_ptr, Block* block, const BlockPos* pos_in_world, signed char face);
+
+	BlockSource* get_block_source() noexcept;
+
 	static void install() noexcept;
 };
 

@@ -16,10 +16,12 @@ public:
 	using getBlockByPosType = Block*(*)(BlockSource* , const BlockPos*);
 	static getBlockByPosType getBlockByPosOrig;
 
+	//--- Hooked Functions ---//
 	static void* get_block_id_by_pos(uint32_t* result, BlockSource* this_ptr, const BlockPos* pos);
 	static Block* get_block_by_pos(BlockSource* this_ptr, const BlockPos* pos);
-	static Material* getMaterial(BlockSource* this_ptr, const BlockPos* pos) noexcept;
-	static bool is_snowed(BlockSource* this_ptr, const BlockPos* pos) noexcept;
+
+	Material* getMaterial(const BlockPos* pos) noexcept;
+	bool is_snowed(const BlockPos* pos) noexcept;
 
 	static void install() noexcept;
 };

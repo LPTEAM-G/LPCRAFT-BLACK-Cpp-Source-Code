@@ -1,7 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #include "BlockTessellator.hpp"
 #include "hook_macro.hpp"
-#include "init.hpp"
+#include "minecraft_app.hpp"
 #include "minecraft_class/AmbientOcclusionCalculator.hpp"
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/BlockSource.hpp"
@@ -9,14 +9,13 @@
 #include <bits/sysconf.h>
 #include <cstdint>
 #include <cstring>
-#include <dlfcn.h>
 
 BlockTessellator::tessellateBlockInWorldWithAmbienceOcclusionType BlockTessellator::tessellateBlockInWorldWithAmbienceOcclusionTypeOrig = nullptr;
 BlockTessellator::_getTextureFuncType BlockTessellator::_getTextureOrig = nullptr;
 
-BlockSource* BlockTessellator::get_block_source(BlockTessellator* this_ptr) noexcept
+BlockSource* BlockTessellator::get_block_source() noexcept
 {
-	return *(BlockSource**)((uintptr_t)this_ptr + 4);
+	return *(BlockSource**)((uintptr_t)this + 4);
 }
 
 int BlockTessellator::tessellate_block_in_world_with_ambience_occlusion(BlockTessellator* this_ptr, Block* block, BlockPos* pos, const Color* color, const BlockOccluder* occluder)
@@ -32,11 +31,13 @@ TextureUVCoordinateSet* BlockTessellator::_get_texture(BlockTessellator* this_pt
 
 void BlockTessellator::install() noexcept
 {
-	void* _getTextureTarget = dlsym(minecraft_app::game_lib_handler,"_ZNK16BlockTessellator11_getTextureER5BlockRK8BlockPosa");
+	//_ZNK16BlockTessellator11_getTextureER5BlockRK8BlockPosa
+	void* _getTextureTarget = minecraft_app::get_lib_thumb_function_ptr(0x397554);
 	MSHook(_getTextureTarget, _get_texture, _getTextureOrig);
 
+	//_ZN16BlockTessellator43tessellateBlockInWorldWithAmbienceOcclusionER5Block8BlockPosRK5ColorRK13BlockOccluder
 	void* tessellateBlockInWorldWithAmbienceOcclusionTypeTarget =
-		dlsym(minecraft_app::game_lib_handler, "_ZN16BlockTessellator43tessellateBlockInWorldWithAmbienceOcclusionER5Block8BlockPosRK5ColorRK13BlockOccluder");
+		minecraft_app::get_lib_thumb_function_ptr(0x39F430);
 	MSHook(
 		tessellateBlockInWorldWithAmbienceOcclusionTypeTarget,
 		tessellate_block_in_world_with_ambience_occlusion,

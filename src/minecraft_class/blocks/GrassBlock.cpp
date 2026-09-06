@@ -1,9 +1,8 @@
 //Copyright (c) 2026 LPTEAM
 #include <cstring>
-#include <dlfcn.h>
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "hook_macro.hpp"
-#include "init.hpp"
+#include "minecraft_app.hpp"
 #include "minecraft_class/BlockPos.hpp"
 #include "minecraft_class/BlockSource.hpp"
 
@@ -24,7 +23,7 @@ TextureUVCoordinateSet* GrassBlock::get_texture_in_world(GrassBlock* this_ptr, B
 		return top_set;
 	else
 	{
-		if (BlockSource::is_snowed(block_source, pos))
+		if (block_source->is_snowed(pos))
 			return snowed_side_set;
 		//侧面也使用顶部纹理
 		//强制实现BetterGrass纹理
@@ -35,6 +34,7 @@ TextureUVCoordinateSet* GrassBlock::get_texture_in_world(GrassBlock* this_ptr, B
 
 void GrassBlock::install() noexcept
 {
-	void* getTextureInWorldTarget = dlsym(minecraft_app::game_lib_handler, "_ZN10GrassBlock10getTextureER11BlockSourceRK8BlockPosa");
-	MSHook(getTextureInWorldTarget, get_texture_in_world, getTextureInWorldOrig);
+	//_ZN10GrassBlock10getTextureER11BlockSourceRK8BlockPosa
+	void* get_textrue_in_world_target = minecraft_app::get_lib_thumb_function_ptr(0x5A8DE4);
+	MSHook(get_textrue_in_world_target, get_texture_in_world, getTextureInWorldOrig);
 }

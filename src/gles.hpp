@@ -1,6 +1,6 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef GLSL_HPP
-#define GLSL_HPP
+#ifndef GLES_HPP
+#define GLES_HPP
 
 using gl_enum = unsigned int;
 using gl_boolean = unsigned char;
@@ -8,7 +8,7 @@ using gl_boolean = unsigned char;
 constexpr gl_boolean gl_true = 1;
 constexpr gl_boolean gl_false = 0;
 
-class glsl
+class gles
 {
 private:
 	using depth_mask_type = void(*)(gl_boolean);

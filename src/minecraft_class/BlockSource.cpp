@@ -1,11 +1,10 @@
 //Copyright (c) 2026 LPTEAM
 #include "BlockSource.hpp"
 #include "hook_macro.hpp"
-#include "init.hpp"
+#include "minecraft_app.hpp"
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/Material.hpp"
 #include <cstdint>
-#include <dlfcn.h>
 
 BlockSource::getBlockIDByPosType BlockSource::getBlockIDByPosOrig = nullptr;
 BlockSource::getBlockByPosType BlockSource::getBlockByPosOrig = nullptr;
@@ -22,17 +21,17 @@ Block* BlockSource::get_block_by_pos(BlockSource* this_ptr, const BlockPos* pos)
 	return Block::get_block_table()[block_id];
 }
 
-Material* BlockSource::getMaterial(BlockSource* this_ptr, const BlockPos* pos) noexcept
+Material* BlockSource::getMaterial(const BlockPos* pos) noexcept
 {
-	Block* block = get_block_by_pos(this_ptr, pos);
+	Block* block = get_block_by_pos(this, pos);
 	return Block::getMaterial(block);
 }
 
-bool BlockSource::is_snowed(BlockSource* this_ptr, const BlockPos* pos) noexcept
+bool BlockSource::is_snowed(const BlockPos* pos) noexcept
 {
 	BlockPos above_pos = *pos;
 	above_pos.y += 1;
-	Material* material = getMaterial(this_ptr, &above_pos);
+	Material* material = getMaterial(&above_pos);
 	if (
 		Material::isType(material, MaterialType::top_snow) or
 		Material::isType(material, MaterialType::snow_block)
@@ -44,8 +43,11 @@ bool BlockSource::is_snowed(BlockSource* this_ptr, const BlockPos* pos) noexcept
 
 void BlockSource::install() noexcept
 {
-	void* getBlockIDByPosTarget = dlsym(minecraft_app::game_lib_handler, "_ZN11BlockSource10getBlockIDERK8BlockPos");
-	MSHook(getBlockIDByPosTarget, get_block_id_by_pos, getBlockIDByPosOrig);
-	void* getBlockByPosTarget = dlsym(minecraft_app::game_lib_handler, "_ZN11BlockSource8getBlockERK8BlockPos");
-	MSHook(getBlockByPosTarget, get_block_by_pos, getBlockByPosOrig);
+	//_ZN11BlockSource10getBlockIDERK8BlockPos
+	void* get_block_id_by_pos_target = minecraft_app::get_lib_thumb_function_ptr(0x524C74);
+	MSHook(get_block_id_by_pos_target, get_block_id_by_pos, getBlockIDByPosOrig);
+
+	//_ZN11BlockSource8getBlockERK8BlockPos
+	void* get_block_by_pos_target = minecraft_app::get_lib_thumb_function_ptr(0x525138);
+	MSHook(get_block_by_pos_target, get_block_by_pos, getBlockByPosOrig);
 }

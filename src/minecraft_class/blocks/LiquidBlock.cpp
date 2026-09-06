@@ -1,6 +1,6 @@
 //Copyright (c) 2026 LPTEAM
 #include "LiquidBlock.hpp"
-#include "init.hpp"
+#include "minecraft_app.hpp"
 #include "minecraft_class/TextureUVCoordinateSet.hpp"
 #include "hook_macro.hpp"
 #include <dlfcn.h>
@@ -20,6 +20,7 @@ TextureUVCoordinateSet* LiquidBlock::getTexture(LiquidBlock *this_ptr, signed ch
 
 void LiquidBlock::install() noexcept
 {
-	void* getTextureTarget = dlsym(minecraft_app::game_lib_handler, "_ZN11LiquidBlock10getTextureEa");
+	//_ZN11LiquidBlock10getTextureEa
+	void* getTextureTarget = minecraft_app::get_lib_thumb_function_ptr(0x582C08);
 	MSHook(getTextureTarget, getTexture, getTextureOrig);
 }
