@@ -24,7 +24,7 @@ Block* BlockSource::get_block_by_pos(BlockSource* this_ptr, const BlockPos* pos)
 Material* BlockSource::getMaterial(const BlockPos* pos) noexcept
 {
 	Block* block = get_block_by_pos(this, pos);
-	return Block::getMaterial(block);
+	return block->getMaterial();
 }
 
 bool BlockSource::is_snowed(const BlockPos* pos) noexcept

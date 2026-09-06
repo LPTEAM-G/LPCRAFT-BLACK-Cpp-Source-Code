@@ -6,10 +6,10 @@
 
 Block** Block::get_block_table() noexcept
 {
-	return (Block**)(minecraft_app::game_lib_base + 0x7CAE6C);
+	return minecraft_app::get_lib_global_variable_ptr<Block*>(0x7CAE6C);
 }
 
-Material* Block::getMaterial(Block* this_ptr) noexcept
+Material* Block::getMaterial() noexcept
 {
-	return *((Material**)((uint32_t)this_ptr + 84));
+	return *((Material**)((uint32_t)this + 84));
 }

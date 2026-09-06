@@ -1,0 +1,7 @@
+//Copyright (c) 2026 LPTEAM
+#ifndef MINECRAFT_CLASS_TOUCH_GUI_BUTTONCOLORS_HPP
+#define MINECRAFT_CLASS_TOUCH_GUI_BUTTONCOLORS_HPP
+
+class ButtonColors{};
+
+#endif

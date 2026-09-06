@@ -8,7 +8,7 @@ class Block
 {
 public:
 	static Block** get_block_table() noexcept;
-	static Material* getMaterial(Block* this_ptr) noexcept;
+	Material* getMaterial() noexcept;
 };
 
 #endif

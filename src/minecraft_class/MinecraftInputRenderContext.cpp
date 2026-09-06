@@ -7,14 +7,6 @@ MinecraftInputRenderContext::drawRectType MinecraftInputRenderContext::drawRectO
 
 void MinecraftInputRenderContext::draw_rect(MinecraftInputRenderContext* this_ptr, RectangleArea* area, int uv_x, int uv_y, int uv_width, int uv_height)
 {
-	if (uv_width == 18)
-	{
-		//LOGI("%f, %f, %f, %f", area->x_start, area->y, area->width, area->height);
-		area->x_start = 0;
-		area->x_end = 100;
-		area->y_start = 0;
-		area->y_end = 100;
-	}
 	drawRectOrig(this_ptr, area, uv_x, uv_y, uv_width, uv_height);
 }
 

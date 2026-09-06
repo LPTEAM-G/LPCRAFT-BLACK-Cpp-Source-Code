@@ -5,15 +5,19 @@
 #include "minecraft_class/BlockSource.hpp"
 #include "minecraft_class/BlockTessellator.hpp"
 #include "minecraft_class/LevelRenderer.hpp"
+#include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/MinecraftInputRenderContext.hpp"
 #include "minecraft_class/ScreenChooser.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "minecraft_class/blocks/LiquidBlock.hpp"
 #include "minecraft_class/screens/InGamePlayScreen.hpp"
+#include "minecraft_class/touch_gui/TouchGlyphButtonControl.hpp"
 
 void mod_install() noexcept
 {
+	MinecraftClient::install();
 	AppPlatform::install();
+	TouchGlyphButtonControl::install();
 	MinecraftInputRenderContext::install();
 	BlockSource::install();
 	ScreenChooser::install();
