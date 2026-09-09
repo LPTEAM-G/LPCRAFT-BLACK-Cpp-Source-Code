@@ -25,30 +25,27 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 	bool p_b2
 )
 {
-	if (str == "button.chat")
+	//UI的构造函数有时会突然在MinecraftClient之前构造
+	//所以这里必须判空
+	if (str == "button.chat" and MinecraftClient::instance != nullptr)
 	{
-		//UI的构造函数有时会突然在MinecraftClient之前构造
-		//所以这里必须判空
-		if (MinecraftClient::instance != nullptr)
+		RectangleArea rect = rect_getter();
+		float button_width = rect.x_end - rect.x_start;
+		float button_height = rect.y_end - rect.y_start;
+		float screen_width = MinecraftClient::instance->get_width();
+		float center_x_start = (screen_width - button_width) / 2;
+		//按值捕获, 防止出作用域后访问空指针
+		rect_getter = [=]() -> RectangleArea
 		{
-			RectangleArea rect = rect_getter();
-			float button_width = rect.x_end - rect.x_start;
-			float button_height = rect.y_end - rect.y_start;
-			float screen_width = MinecraftClient::instance->get_width();
-			float center_x_start = (screen_width - button_width) / 2;
-			//按值捕获, 防止出作用域后访问空指针
-			rect_getter = [=]() -> RectangleArea
+			//此物同时决定了视觉位置和触摸位置
+			return RectangleArea
 			{
-				//此物同时决定了视觉位置和触摸位置
-				return RectangleArea
-				{
-					.x_start = center_x_start,
-					.x_end = center_x_start + button_width,
-					.y_start = 0,
-					.y_end = button_height
-				};
+				.x_start = center_x_start,
+				.x_end = center_x_start + button_width,
+				.y_start = 0,
+				.y_end = button_height
 			};
-		}
+		};
 	}
 	
 	constructor_orig(
