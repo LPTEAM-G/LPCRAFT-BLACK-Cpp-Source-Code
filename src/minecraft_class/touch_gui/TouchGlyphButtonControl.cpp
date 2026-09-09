@@ -5,13 +5,14 @@
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/RectangleArea.hpp"
 #include <cstring>
+#include "minecraft_class/touch_gui/ButtonColors.hpp"
 
 TouchGlyphButtonControl::constructor_type TouchGlyphButtonControl::constructor_orig = nullptr;
 
 TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 	TouchGlyphButtonControl* this_ptr,
 	std::function<RectangleArea ()> rect_getter,
-	std::function<bool ()> func,
+	std::function<bool()> func,
 	short p_s1,
 	const ButtonColors* color,
 	int uv_x,
@@ -25,6 +26,7 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 	bool p_b2
 )
 {
+	static float small_button_size = 0.0f;
 	//UI的构造函数有时会突然在MinecraftClient之前构造
 	//所以这里必须判空
 	if (str == "button.chat" and MinecraftClient::instance != nullptr)
@@ -32,6 +34,8 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 		RectangleArea rect = rect_getter();
 		float button_width = rect.x_end - rect.x_start;
 		float button_height = rect.y_end - rect.y_start;
+		//打算在这里存储按钮尺寸
+		small_button_size = button_width;
 		float screen_width = MinecraftClient::instance->get_width();
 		float center_x_start = (screen_width - button_width) / 2;
 		//按值捕获, 防止出作用域后访问空指针
@@ -42,8 +46,26 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 			{
 				.x_start = center_x_start,
 				.x_end = center_x_start + button_width,
-				.y_start = 0,
+				.y_start = 0.0f,
 				.y_end = button_height
+			};
+		};
+	}
+	//在安卓端它的RectangleArea被设定为全0
+	//这里让其重新可以绘制, 并居于聊天按钮右侧
+	else if (str == "button.pause" and MinecraftClient::instance != nullptr)
+	{
+		float screen_width = MinecraftClient::instance->get_width();
+		float center_x_start = (screen_width - small_button_size) / 2;
+		float pause_button_x_start = center_x_start + small_button_size;
+		rect_getter = [=]() -> RectangleArea
+		{
+			return RectangleArea
+			{
+				.x_start = pause_button_x_start,
+				.x_end = pause_button_x_start + small_button_size,
+				.y_start = 0.0f,
+				.y_end = small_button_size
 			};
 		};
 	}
