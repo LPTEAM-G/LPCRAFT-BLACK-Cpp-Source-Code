@@ -14,6 +14,7 @@ LevelRenderer::renderChunksType LevelRenderer::renderChunksOrig = nullptr;
 LevelRenderer* LevelRenderer::render_level(LevelRenderer* this_ptr, Entity* entity, FrustumCuller* fc1, FrustumCuller* fc2, float f1, float f2)
 {
 	render_level_orig(this_ptr, entity, fc1, fc2, f1, f2);
+	//可能启用的延后渲染
 	renderClouds(this_ptr, f2);
 	return this_ptr;
 }
@@ -21,9 +22,13 @@ LevelRenderer* LevelRenderer::render_level(LevelRenderer* this_ptr, Entity* enti
 void LevelRenderer::renderClouds(LevelRenderer *this_ptr, float time)
 {
 	static bool should_enable_after_rendering = false;
+	//提高云层渲染高度
 	this_ptr->get_player_camera_pos().y -= increased_clouds_height;
 	float camera_y = this_ptr->get_player_camera_pos().y;
 
+	//此时云层开始修改深度范围
+	//为不再使云遮挡其它半透明像素
+	//这里研究了按条件的延后渲染模式
 	if (camera_y >= 129.0f)
 	{
 		if (should_enable_after_rendering)

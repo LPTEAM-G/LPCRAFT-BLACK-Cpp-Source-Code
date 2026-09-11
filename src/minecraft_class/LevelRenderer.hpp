@@ -3,9 +3,8 @@
 #define MINECRAFT_CLASS_LEVELRENDERER_HPP
 
 #include "minecraft_class/Entity.hpp"
+#include "minecraft_class/FrustumCuller.hpp"
 #include "minecraft_class/Vec3.hpp"
-
-class FrustumCuller;
 
 class LevelRenderer
 {

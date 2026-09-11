@@ -1,4 +1,5 @@
 //Copyright (c) 2026 LPTEAM
+#include <cstdio>
 #include <cstring>
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "hook_macro.hpp"
@@ -16,7 +17,7 @@ TextureUVCoordinateSet* GrassBlock::get_texture_in_world(GrassBlock* this_ptr, B
 	TextureUVCoordinateSet* top_set = (TextureUVCoordinateSet*)((char*)this_ptr + 176);
 	TextureUVCoordinateSet* bottom_set = (TextureUVCoordinateSet*)((char*)this_ptr + 152);
 	TextureUVCoordinateSet* snowed_side_set = (TextureUVCoordinateSet*)((char*)this_ptr + 212);
-	
+
 	if (face == bottom_face)
 		return bottom_set;
 	else if (face == top_face)

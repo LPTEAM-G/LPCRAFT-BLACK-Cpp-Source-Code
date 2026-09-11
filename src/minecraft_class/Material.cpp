@@ -2,12 +2,12 @@
 #include "Material.hpp"
 #include "minecraft_class/MaterialType.hpp"
 
-MaterialType Material::get_type(Material* this_ptr) noexcept
+MaterialType Material::get_type() noexcept
 {
-	return *((MaterialType*)this_ptr);
+	return *((MaterialType*)this);
 }
 
-bool Material::isType(Material* this_ptr, MaterialType type) noexcept
+bool Material::is_type(MaterialType type) noexcept
 {
-	return (int)type == 35 or get_type(this_ptr) == type;
+	return (int)type == 35 or this->get_type() == type;
 }

@@ -2,16 +2,12 @@
 #ifndef MINECRAFT_CLASS_TEXTUREUVCOORDINATESET_HPP
 #define MINECRAFT_CLASS_TEXTUREUVCOORDINATESET_HPP
 
-#include "minecraft_class/TextureFile.hpp"
-
 struct TextureUVCoordinateSet
 {
-/*
 	float bounds[4];
 	unsigned short size[2];
-	void* filler;
-	TextureFile* texture_file;
-*/
+	//已废弃的成员
+	unsigned int texture_file;
 };
 
 #endif

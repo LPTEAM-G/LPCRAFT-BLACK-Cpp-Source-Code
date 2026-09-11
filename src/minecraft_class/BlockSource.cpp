@@ -33,8 +33,8 @@ bool BlockSource::is_snowed(const BlockPos* pos) noexcept
 	above_pos.y += 1;
 	Material* material = getMaterial(&above_pos);
 	if (
-		Material::isType(material, MaterialType::top_snow) or
-		Material::isType(material, MaterialType::snow_block)
+		material->is_type(MaterialType::top_snow) or
+		material->is_type(MaterialType::snow_block)
 	)
 		return true;
 	else

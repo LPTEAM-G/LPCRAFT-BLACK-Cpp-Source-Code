@@ -7,8 +7,8 @@
 class Material
 {
 public:
-	static MaterialType get_type(Material* this_ptr) noexcept;
-	static bool isType(Material* this_ptr, MaterialType type) noexcept;
+	MaterialType get_type() noexcept;
+	bool is_type(MaterialType type) noexcept;
 };
 
 #endif

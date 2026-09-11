@@ -1,0 +1,7 @@
+//Copyright (c) 2026 LPTEAM
+#ifndef MINECRAFT_CLASS_FRUSTUMCULLER_HPP
+#define MINECRAFT_CLASS_FRUSTUMCULLER_HPP
+
+class FrustumCuller{};
+
+#endif

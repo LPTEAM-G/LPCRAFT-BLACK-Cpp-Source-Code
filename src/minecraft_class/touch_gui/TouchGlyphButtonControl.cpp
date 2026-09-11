@@ -36,7 +36,7 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 		float button_height = rect.y_end - rect.y_start;
 		//打算在这里存储按钮尺寸
 		small_button_size = button_width;
-		float screen_width = MinecraftClient::instance->get_width();
+		float screen_width = MinecraftClient::instance->get_screen_width();
 		float center_x_start = (screen_width - button_width) / 2;
 		//按值捕获, 防止出作用域后访问空指针
 		rect_getter = [=]() -> RectangleArea
@@ -55,7 +55,7 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 	//这里让其重新可以绘制, 并居于聊天按钮右侧
 	else if (str == "button.pause" and MinecraftClient::instance != nullptr)
 	{
-		float screen_width = MinecraftClient::instance->get_width();
+		float screen_width = MinecraftClient::instance->get_screen_width();
 		float center_x_start = (screen_width - small_button_size) / 2;
 		float pause_button_x_start = center_x_start + small_button_size;
 		rect_getter = [=]() -> RectangleArea
