@@ -16,6 +16,7 @@ public:
 
 	static void init() noexcept;
 	static void* get_lib_thumb_function_ptr(uintptr_t offset) noexcept;
+	static void* get_lib_vtable_address(uintptr_t offset) noexcept;
 
 	template<typename T>
 	static T* get_lib_global_variable_ptr(uintptr_t offset) noexcept

@@ -30,6 +30,11 @@ void* minecraft_app::get_lib_thumb_function_ptr(uintptr_t offset) noexcept
 	return (void*)(game_lib_base + offset + 1);
 }
 
+void* minecraft_app::get_lib_vtable_address(uintptr_t offset) noexcept
+{
+	return (void*)(game_lib_base + offset);
+}
+
 void minecraft_app::init() noexcept
 {
 	get_game_lib_handler();

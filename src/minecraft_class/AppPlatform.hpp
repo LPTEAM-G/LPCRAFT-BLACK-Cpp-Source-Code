@@ -15,6 +15,7 @@ private:
 public:
 	static AppPlatform* get_instance_as_base() noexcept;
 	static AppPlatform_android* get_instance_as_android_derived() noexcept;
+	static bool use_centered_gui() noexcept;
 	static std::string& home_path() noexcept;
 	static void install() noexcept;
 };
