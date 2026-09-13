@@ -6,7 +6,7 @@
 namespace tools
 {
 	vtable_setter::vtable_setter(
-		void* vtable_address,
+		vtable_setter::value_type vtable_address,
 		unsigned long ptr_count_in_vtable
 	) noexcept:
 	guard(
@@ -22,13 +22,37 @@ namespace tools
 			return page_count;
 		}()
 	),
-	address(vtable_address),
+	varray((void**)vtable_address),
 	ptr_count(ptr_count_in_vtable)
 	{}
 
-	void vtable_setter::set_at(unsigned long index, void* ptr) noexcept
+	vtable_setter::value_type& vtable_setter::operator[](unsigned long index) noexcept
 	{
-		if (index >= ptr_count) return;
-		((void**)address)[index] = ptr;
+		return varray[index];
+	}
+
+	vtable_setter::iterator vtable_setter::begin() noexcept
+	{
+		return varray;
+	}
+
+	vtable_setter::iterator vtable_setter::end() noexcept
+	{
+		return varray + ptr_count;
+	}
+
+	vtable_setter::const_iterator vtable_setter::begin() const noexcept
+	{
+		return varray;
+	}
+
+	vtable_setter::const_iterator vtable_setter::end() const noexcept
+	{
+		return varray + ptr_count;
+	}
+
+	vtable_setter::~vtable_setter() noexcept
+	{
+		__builtin___clear_cache((char*)varray, (char*)((uintptr_t)varray + get_page_size()));
 	}
 }

@@ -2,25 +2,35 @@
 #include "mod_install.hpp"
 #include "minecraft_class/AmbientOcclusionCalculator.hpp"
 #include "minecraft_class/AppPlatform.hpp"
+#include "minecraft_class/AppPlatform_android.hpp"
 #include "minecraft_class/BlockSource.hpp"
 #include "minecraft_class/BlockTessellator.hpp"
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/MinecraftInputRenderContext.hpp"
+#include "minecraft_class/Options.hpp"
+#include "minecraft_class/PropertyFile.hpp"
 #include "minecraft_class/ScreenChooser.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "minecraft_class/blocks/LiquidBlock.hpp"
+#include "minecraft_class/gui_components/OptionsGroup.hpp"
 #include "minecraft_class/screens/InGamePlayScreen.hpp"
+#include "minecraft_class/screens/OptionsScreen.hpp"
 #include "minecraft_class/touch_gui/TouchGlyphButtonControl.hpp"
 
 void mod_install() noexcept
 {
 	MinecraftClient::install();
 	AppPlatform::install();
+	AppPlatform_android::install();
+	Options::install();
+	OptionsGroup::install();
+	PropertyFile::install();
 	TouchGlyphButtonControl::install();
 	MinecraftInputRenderContext::install();
 	BlockSource::install();
 	ScreenChooser::install();
+	OptionsScreen::install();
 	InGamePlayScreen::install();
 	AmbientOcclusionCalculator::install();
 	BlockTessellator::install();

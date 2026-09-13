@@ -7,20 +7,30 @@ namespace tools
 {
 	class vtable_setter
 	{
+	public:
+		using value_type = void*;
+		using iterator = value_type*;
+		using const_iterator = const value_type*;
+		
 	private:
 		vtable_area_writable_guard guard;
-		void* address;
+		void** varray;
 		unsigned long ptr_count;
 
 	public:
 		vtable_setter(
-			void* vtable_address,
+			value_type vtable_address,
 			unsigned long ptr_count_in_vtable
 		) noexcept;
 
-		void set_at(unsigned long index, void* ptr) noexcept;
+		value_type& operator[](unsigned long index) noexcept;
 
-		~vtable_setter() noexcept = default;
+		iterator begin() noexcept;
+		iterator end() noexcept;
+		const_iterator begin() const noexcept;
+		const_iterator end() const noexcept;
+
+		~vtable_setter() noexcept;
 	};
 }
 

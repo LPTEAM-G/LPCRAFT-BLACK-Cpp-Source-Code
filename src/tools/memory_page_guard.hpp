@@ -4,7 +4,6 @@
 #include <bits/sysconf.h>
 #include <cstdint>
 #include <sys/mman.h>
-#include <unistd.h>
 
 namespace tools
 {
@@ -21,18 +20,16 @@ namespace tools
 		constexpr protect_enum rwx = r | w | x;
 	}
 
-	inline static unsigned long get_page_size() noexcept;
-
-	inline static void* cal_start_address(void* target_address_in_a_page) noexcept
-	{
-		return (void*)((uintptr_t)target_address_in_a_page & ~(get_page_size() - 1));
-	}
-
-	inline static unsigned long get_page_size() noexcept
+	inline unsigned long get_page_size() noexcept
 	{
 		return sysconf(_SC_PAGESIZE);
 	}
 		
+	inline void* cal_start_address(void* target_address_in_a_page) noexcept
+	{
+		return (void*)((uintptr_t)target_address_in_a_page & ~(get_page_size() - 1));
+	}
+	
 	template<protect_enum before, protect_enum after>
 	class memory_page_guard
 	{
