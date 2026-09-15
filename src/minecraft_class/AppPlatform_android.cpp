@@ -1,7 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #include "AppPlatform_android.hpp"
 #include "minecraft_class/AppPlatform.hpp"
-#include "minecraft_class/Options.hpp"
+#include "minecraft_class/options_about/Options.hpp"
 #include "tools/vtable_setter.hpp"
 #include <cstdint>
 #include <string>

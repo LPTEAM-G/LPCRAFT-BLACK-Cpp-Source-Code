@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "vtable_setter.hpp"
 #include "tools/memory_page_guard.hpp"
 #include <cstdint>

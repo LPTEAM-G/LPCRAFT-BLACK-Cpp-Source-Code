@@ -1,8 +1,9 @@
+//Copyright (c) 2026 LPTEAM
 #include "PropertyFile.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
-#include "minecraft_class/OptionStrings.hpp"
-#include "minecraft_class/Options.hpp"
+#include "OptionStrings.hpp"
+#include "Options.hpp"
 #include <string>
 
 PropertyFile::save_properties_to_file_type PropertyFile::save_properties_to_file_orig = nullptr;
@@ -22,9 +23,14 @@ void PropertyFile::save_properties_to_file(const std::string* path, const vector
 	save_properties_to_file_orig(path, properties);
 }
 
-void PropertyFile::read_properties_from_file(vector_prop* properties, Options* options)
+void PropertyFile::read_properties_from_file(PropertyFile* properties, Options* options)
 {
-	
+	read_properties_from_file_orig(properties, options);
+	for (auto& prop : properties->props)
+	{
+		if (prop.key == OptionStrings::Graphics_UseCenteredGUI)
+			Options::opt_vars::use_centered_gui = (prop.value == "1");
+	}
 }
 
 void PropertyFile::install() noexcept
@@ -35,5 +41,13 @@ void PropertyFile::install() noexcept
 		save_properties_to_file_target,
 		save_properties_to_file,
 		save_properties_to_file_orig
+	);
+
+	//_ZN12PropertyFile22readPropertiesFromFileERKSs
+	void* read_properties_from_file_target = minecraft_app::get_lib_thumb_function_ptr(0x3E8B98);
+	MSHook(
+		read_properties_from_file_target,
+		read_properties_from_file,
+		read_properties_from_file_orig
 	);
 }

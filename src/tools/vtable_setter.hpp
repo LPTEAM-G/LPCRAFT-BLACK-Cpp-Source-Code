@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #ifndef TOOLS_VTABLE_SETTER_HPP
 #define TOOLS_VTABLE_SETTER_HPP
 

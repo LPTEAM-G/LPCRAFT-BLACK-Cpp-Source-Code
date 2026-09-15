@@ -1,8 +1,9 @@
+//Copyright (c) 2026 LPTEAM
 #include "OptionsScreen.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
-#include "minecraft_class/Options.hpp"
+#include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/gui_components/OptionsGroup.hpp"
 #include <cstdint>
 

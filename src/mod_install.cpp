@@ -8,14 +8,17 @@
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/MinecraftInputRenderContext.hpp"
-#include "minecraft_class/Options.hpp"
-#include "minecraft_class/PropertyFile.hpp"
+#include "minecraft_class/options_about/Options.hpp"
+#include "minecraft_class/options_about/PropertyFile.hpp"
 #include "minecraft_class/ScreenChooser.hpp"
+#include "minecraft_class/sound_about/SoundEngine.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "minecraft_class/blocks/LiquidBlock.hpp"
 #include "minecraft_class/gui_components/OptionsGroup.hpp"
 #include "minecraft_class/screens/InGamePlayScreen.hpp"
 #include "minecraft_class/screens/OptionsScreen.hpp"
+#include "minecraft_class/sound_about/SoundRepository.hpp"
+#include "minecraft_class/sound_about/SoundSystemFMOD.hpp"
 #include "minecraft_class/touch_gui/TouchGlyphButtonControl.hpp"
 
 void mod_install() noexcept
@@ -23,18 +26,32 @@ void mod_install() noexcept
 	MinecraftClient::install();
 	AppPlatform::install();
 	AppPlatform_android::install();
+	
+	//about options
 	Options::install();
 	OptionsGroup::install();
 	PropertyFile::install();
+
+	//about sound
+	SoundSystemFMOD::install();
+	SoundRepository::install();
+	SoundEngine::install();
+	
 	TouchGlyphButtonControl::install();
 	MinecraftInputRenderContext::install();
 	BlockSource::install();
+	
+	//about screen
 	ScreenChooser::install();
 	OptionsScreen::install();
 	InGamePlayScreen::install();
+	
 	AmbientOcclusionCalculator::install();
 	BlockTessellator::install();
+
+	//about blocks
 	GrassBlock::install();
 	LiquidBlock::install();
+	
 	LevelRenderer::install();
 }
