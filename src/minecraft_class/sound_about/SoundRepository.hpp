@@ -7,6 +7,13 @@
 
 class SoundRepository
 {
+private:
+	static void add_impl(
+		SoundRepository* this_ptr,
+		const std::string* name,
+		const SoundEvent* sound_event
+	);
+	
 public:
 	using add_type = void(*)(
 		SoundRepository*,
@@ -15,11 +22,7 @@ public:
 	);
 	static add_type add_orig;
 
-	static void add(
-		SoundRepository* this_ptr,
-		const std::string* name,
-		const SoundEvent* sound_event
-	);
+	void add(const std::string& name, const SoundEvent& event) noexcept;
 
 	static void install() noexcept;
 };

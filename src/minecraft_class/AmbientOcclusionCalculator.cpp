@@ -1,10 +1,12 @@
 //Copyright (c) 2026 LPTEAM
 #include "AmbientOcclusionCalculator.hpp"
+#include "block_id_enum.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/BlockPos.hpp"
 #include "minecraft_class/BlockSource.hpp"
 #include "minecraft_class/BlockTessellator.hpp"
+#include "minecraft_class/options_about/Options.hpp"
 #include <cstdint>
 #include <hook_macro.hpp>
 
@@ -34,14 +36,17 @@ int AmbientOcclusionCalculator::calculate(AmbientOcclusionCalculator* this_ptr, 
 {
 	if (face > 1)
 	{
-		this_ptr->set_tint_sides(true);
 		Block* block = this_ptr->get_block();
 		//如果是草方块
-		if (block == Block::get_block_table()[2])
+		if (
+			block == Block::get_block_table()[block_id_enum::grass_block] and
+			Options::opt_vars::graphics::better_grass)
 		{
+			this_ptr->set_tint_sides(true);
 			BlockTessellator* bt = this_ptr->get_block_tessellator();
 			BlockSource* bs = bt->get_block_source();
-			if (bs->is_snowed( this_ptr->get_block_pos()))
+			BlockPos* pos = this_ptr->get_block_pos();
+			if (bs->is_snowed(*pos))
 			{
 				this_ptr->set_tint_sides(false);
 			}

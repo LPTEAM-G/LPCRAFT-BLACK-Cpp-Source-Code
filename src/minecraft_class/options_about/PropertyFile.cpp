@@ -19,7 +19,8 @@ void PropertyFile::save_boolean_key(const vector_prop* properties, const std::st
 
 void PropertyFile::save_properties_to_file(const std::string* path, const vector_prop* properties)
 {
-	save_boolean_key(properties, &OptionStrings::Graphics_UseCenteredGUI, Options::opt_vars::use_centered_gui);
+	save_boolean_key(properties, &OptionStrings::GUI_CenteredHUD, Options::opt_vars::gui::centered_hud);
+	save_boolean_key(properties, &OptionStrings::Graphics_BetterGrass, Options::opt_vars::graphics::better_grass);
 	save_properties_to_file_orig(path, properties);
 }
 
@@ -28,8 +29,10 @@ void PropertyFile::read_properties_from_file(PropertyFile* properties, Options* 
 	read_properties_from_file_orig(properties, options);
 	for (auto& prop : properties->props)
 	{
-		if (prop.key == OptionStrings::Graphics_UseCenteredGUI)
-			Options::opt_vars::use_centered_gui = (prop.value == "1");
+		if (prop.key == OptionStrings::GUI_CenteredHUD)
+			Options::opt_vars::gui::centered_hud = (prop.value == "1");
+		else if (prop.key == OptionStrings::Graphics_BetterGrass)
+			Options::opt_vars::graphics::better_grass = (prop.value == "1");
 	}
 }
 

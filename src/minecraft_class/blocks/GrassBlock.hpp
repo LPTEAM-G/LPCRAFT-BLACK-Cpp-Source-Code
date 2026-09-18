@@ -8,11 +8,21 @@
 
 class GrassBlock
 {
-public:
-	using getTextureInWorldFuncType = TextureUVCoordinateSet* (*)(GrassBlock*, BlockSource*, const BlockPos*, signed char);
-	static getTextureInWorldFuncType getTextureInWorldOrig;
+private:
+	static TextureUVCoordinateSet* get_texture_in_world_impl(GrassBlock* this_ptr, BlockSource* block_source, const BlockPos* pos_in_world, signed char face);
+	static TextureUVCoordinateSet* get_carried_texture_impl(GrassBlock* this_ptr, signed char face, int data);
 
-	static TextureUVCoordinateSet* get_texture_in_world(GrassBlock* this_ptr, BlockSource* block_source, const BlockPos* pos_in_world, signed char face);
+public:
+	using get_texture_in_world_type = TextureUVCoordinateSet*(*)(GrassBlock*, BlockSource*, const BlockPos*, signed char);
+	static get_texture_in_world_type get_texture_in_world_orig;
+
+	using get_carried_texture_type = TextureUVCoordinateSet*(*)(GrassBlock*, signed char, int);
+	static get_carried_texture_type get_carried_texture_orig;
+
+	TextureUVCoordinateSet* get_top_texture() noexcept;				//未着色
+	TextureUVCoordinateSet* get_carried_top_texture() noexcept;		//已着色
+	TextureUVCoordinateSet* get_bottom_texture() noexcept;
+	TextureUVCoordinateSet* get_snowed_side_texture() noexcept;
 
 	static void install() noexcept;
 };

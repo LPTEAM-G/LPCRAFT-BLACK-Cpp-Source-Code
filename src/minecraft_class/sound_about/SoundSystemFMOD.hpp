@@ -6,6 +6,15 @@
 
 class SoundSystemFMOD
 {
+private:
+	static void load_impl(
+		SoundSystemFMOD* this_ptr,
+		const std::string* name,
+		bool stream,
+		bool is_3d,
+		float min_distance
+	);
+	
 public:
 	using load_type = void(*)(
 		SoundSystemFMOD*,
@@ -16,13 +25,12 @@ public:
 	);
 	static load_type load_orig;
 
-	static void load(
-		SoundSystemFMOD* this_ptr,
-		const std::string* name,
+	void load(
+		const std::string& name,
 		bool stream,
 		bool is_3d,
 		float min_distance
-	);
+	) noexcept;
 
 	std::string& get_music_base_path() noexcept;
 

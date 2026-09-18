@@ -85,28 +85,25 @@ local function main()
 		local f = io.open(filename, "r")
 		if not f then
 			print("[FAIL] Cannot read " .. filename)
-			goto continue
-		end
-
-		local content = f:read("*all")
-		f:close()
-
-		local new_content, count = content:gsub(pattern, change)
-
-		if count > 0 then
-			local out = io.open(filename, "w")
-			if not out then
-				print("[FAIL] Cannot write " .. filename)
-				goto continue
-			end
-			out:write(new_content)
-			out:close()
-			print("[OK] " .. filename .. " (" .. count .. " replacements)")
 		else
-			print("[SKIP] " .. filename .. " (no match)")
-		end
+			local content = f:read("*all")
+			f:close()
 
-		::continue::
+			local new_content, count = content:gsub(pattern, change)
+
+			if count > 0 then
+				local out = io.open(filename, "w")
+				if not out then
+					print("[FAIL] Cannot write " .. filename)
+				else
+					out:write(new_content)
+					out:close()
+					print("[OK] " .. filename .. " (" .. count .. " replacements)")
+				end
+			else
+				print("[SKIP] " .. filename .. " (no match)")
+			end
+		end
 	end
 end
 

@@ -3,6 +3,8 @@
 #define MINECRAFT_CLASS_MINECRAFTCLIENT_HPP
 
 #include <string>
+#include "minecraft_class/Minecraft.hpp"
+
 class MinecraftClient
 {
 public:
@@ -20,6 +22,7 @@ public:
 	std::string& get_worlds_dirname() noexcept;
 	std::string& get_final_worlds_dir_path() noexcept;
 	int get_screen_width() noexcept;
+	Minecraft* get_server() noexcept;
 
 	static void install() noexcept;
 };

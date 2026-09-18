@@ -6,7 +6,8 @@
 
 namespace OptionStrings
 {
-	extern std::string Graphics_UseCenteredGUI;
+	extern std::string GUI_CenteredHUD;
+	extern std::string Graphics_BetterGrass;
 }
 
 #endif

@@ -2,20 +2,50 @@
 #include "OptionsScreen.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
+#include "minecraft_class/Level.hpp"
+#include "minecraft_class/Minecraft.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/gui_components/OptionsGroup.hpp"
 #include <cstdint>
+#include <string>
+#include <utility>
 
 OptionsScreen::_generateOptionScreensDefaultType OptionsScreen::_generateOptionScreensDefaultOrig = nullptr;
 
 int OptionsScreen::_generate_option_screens_default(OptionsScreen* this_ptr)
 {
 	int result = _generateOptionScreensDefaultOrig(this_ptr);
+	
+	Minecraft* server = this_ptr->get_minecraft_client()->get_server();
+	Level* level = server->get_level();
+	
 	auto& panes = this_ptr->get_panes();
-	auto& graphics_pane = panes[2];
-	auto& graphics_group = graphics_pane->get_groups()[0];
-	OptionsGroup::add_option_item(graphics_group.get(), &Options::USE_CENTERED_GUI, this_ptr->get_minecraft_client());
+	auto graphics_pane = panes[2];
+	auto graphics_group = graphics_pane->get_groups()[0];
+	graphics_pane->create_options_group("options.group.gui", true);
+	auto gui_group = graphics_pane->get_groups()[2];
+
+	int gui_scale_index = 2;
+	gui_group->get_items().push_back(std::move(graphics_group->get_items()[gui_scale_index]));
+	graphics_group->get_items().erase(graphics_group->get_items().begin() + gui_scale_index);
+	gui_group->add_option_item(
+		Options::CENTERED_HUD,
+		this_ptr->get_minecraft_client()
+	);
+
+	//不在游戏中
+	if (level == nullptr)
+	{
+		graphics_group->add_option_item(
+			Options::BETTER_GRASS,
+			this_ptr->get_minecraft_client()
+		);
+	}
+
+	std::swap(graphics_pane->get_groups()[1], graphics_pane->get_groups()[2]);
+	std::swap(graphics_pane->get_groups()[0], graphics_pane->get_groups()[1]);
+
 	return result;
 }
 

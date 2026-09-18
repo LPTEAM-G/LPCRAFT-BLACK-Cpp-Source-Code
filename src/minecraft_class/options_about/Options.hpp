@@ -31,9 +31,18 @@ public:
 
 	struct opt_vars
 	{
-		static bool use_centered_gui;
+		struct gui
+		{
+			static bool centered_hud;
+		};
+
+		struct graphics
+		{
+			static bool better_grass;
+		};
 	};
-	static Option USE_CENTERED_GUI;
+	static Option CENTERED_HUD;
+	static Option BETTER_GRASS;
 
 	using options_toggle_type = void(*)(Options*, const Option*, int);
 	static options_toggle_type options_toggle_orig;

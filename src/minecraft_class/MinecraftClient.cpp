@@ -2,8 +2,8 @@
 #include "MinecraftClient.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
-#include "minecraft_class/AppPlatform.hpp"
 #include "minecraft_class/AppPlatform_android.hpp"
+#include "minecraft_class/Minecraft.hpp"
 #include <cstdint>
 #include <string>
 
@@ -32,13 +32,18 @@ std::string& MinecraftClient::get_final_worlds_dir_path() noexcept
 	return *(std::string*)((uintptr_t)this + 76);
 }
 
+Minecraft* MinecraftClient::get_server() noexcept
+{
+	return *(Minecraft**)((uintptr_t)this + 96);
+}
+
 void MinecraftClient::constructor(MinecraftClient* this_ptr, int i, char** p_p_c)
 {
 	constructor_orig(this_ptr, i, p_p_c);
 	instance = this_ptr;
 	instance->get_mcpe_dirname() = "data";
 	instance->get_final_worlds_dir_path() =
-		AppPlatform::get_instance_as_android_derived()->get_user_data_path() +
+		AppPlatform_android::get_instance()->get_user_data_path() +
 		"worlds";
 }
 

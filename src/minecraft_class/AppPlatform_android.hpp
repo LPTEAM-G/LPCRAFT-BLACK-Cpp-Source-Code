@@ -7,6 +7,7 @@
 class AppPlatform_android
 {
 public:
+	static AppPlatform_android* get_instance() noexcept;
 	static bool use_centered_gui(AppPlatform_android* this_ptr) noexcept;
 	std::string& get_user_data_path() noexcept;
 	

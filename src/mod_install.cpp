@@ -8,6 +8,7 @@
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/MinecraftInputRenderContext.hpp"
+#include "minecraft_class/gui_components/OptionsPane.hpp"
 #include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/options_about/PropertyFile.hpp"
 #include "minecraft_class/ScreenChooser.hpp"
@@ -29,6 +30,7 @@ void mod_install() noexcept
 	
 	//about options
 	Options::install();
+	OptionsPane::install();
 	OptionsGroup::install();
 	PropertyFile::install();
 

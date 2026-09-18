@@ -3,7 +3,6 @@
 #include "hook_macro.hpp"
 #include "json_cpp.hpp"
 #include "minecraft_app.hpp"
-#include "minecraft_class/AppPlatform.hpp"
 #include "minecraft_class/AppPlatform_android.hpp"
 #include <cstdint>
 #include <cstdio>
@@ -22,15 +21,22 @@ SoundEngine::constructor_type SoundEngine::constructor_orig = nullptr;
 void SoundEngine::constructor(SoundEngine* this_ptr, Options* options)
 {
 	constructor_orig(this_ptr, options);
+
+	std::string music_pack_path =
+		AppPlatform_android::get_instance()->get_user_data_path() +
+		"music_pack/";
+	this_ptr->load_music_pack(music_pack_path);
+}
+
+void SoundEngine::load_music_pack(const std::string& path) noexcept
+{
+	SoundSystemFMOD* fmod = get_sound_system_fmod();
+	SoundRepository* repository = get_sound_repository();
+	fmod->get_music_base_path() = path;
+	std::string json_path = path + "music.json";
 	
 	json_cpp::reader reader;
 	json_cpp::value root;
-
-	//加载自定义音乐包
-	std::string music_pack_dir =
-		AppPlatform::get_instance_as_android_derived()->get_user_data_path() +
-		"music_pack/";
-	std::string music_json_path = music_pack_dir + "music.json";
 
 	auto read_file_to_string = [](const std::string& path) -> std::string
 	{
@@ -42,73 +48,54 @@ void SoundEngine::constructor(SoundEngine* this_ptr, Options* options)
 		return ss.str();
 	};
 
-	std::string json_text = read_file_to_string(music_json_path);
-	bool result = reader.parse(json_text, root, true);
+	std::string json_text = read_file_to_string(json_path);
+	bool successfully = reader.parse(json_text, root, true);
+	if (not successfully)
+		return;
 
-	if (not root.is_object()) return;
+	if (not root.is_object())
+		return;
 	
-	auto names = root.get_member_names();
-	std::vector<SoundEvent> events;
-	for (const auto& event_name : names)
+	std::vector<std::string> music_event_names = root.get_member_names();
+	std::vector<SoundEvent> music_events;
+	
+	for (const auto& event_name : music_event_names)
 	{
-		SoundEvent event;
-		json_cpp::value& music_place_object = root[event_name];
-		if (not music_place_object.is_object())
+		json_cpp::value& music_item_array = root[event_name];
+		if (not music_item_array.is_array())
 			continue;
-		
-		if (
-			not music_place_object.is_member("category") or
-			not music_place_object.is_member("sounds"))
-			continue;
-		std::string category = music_place_object["category"].as_string();
-		if (category != "music")
-			continue;
-		event.category = category;
-		//category不是ui时为true
-		bool is_3d = true;
 
-		json_cpp::value& sound_array = music_place_object["sounds"];
-		if (not sound_array.is_array())
-			continue;
-		auto sound_count = sound_array.size();
-
-		for (int index = 0; index < sound_count; ++index)
+		SoundEvent music_event{"music", {}};
+		for (int index = 0; index < music_item_array.size(); ++index)
 		{
-			json_cpp::value& sound_object = sound_array[index];
-			SoundItem item;
-			item.is_3d = is_3d;
-			item.min_distance = 0.0;
-			if (
-				not sound_object.is_object() or
-				not sound_object.is_member("name") or
-				not sound_object.is_member("stream")
-			)
+			json_cpp::value& music_name = music_item_array[index];
+			if (not music_name.is_string())
 				continue;
+			
+			SoundItem music_item = SoundItem
+			{
+				.name = music_name.as_string(),
+				.volume = 1.0f,
+				.stream = true,
+				.is_3d = true,
+				.min_distance = 0.0f
+			};
 
-			item.name = sound_object["name"].as_string();
-			item.stream = sound_object["stream"].as_bool();
-			item.volume = 1.0f;
-
-			event.sounds.push_back(item);
+			music_event.sounds.push_back(std::move(music_item));
 		}
-		events.push_back(event);
-		SoundRepository::add(
-			this_ptr->get_sound_repository(),
-			&event_name,
-			&event
-		);
+		repository->add(event_name, music_event);
+		music_events.push_back(std::move(music_event));
 	}
 
-	for (const auto& event : events)
+	for (const auto& event : music_events)
 	{
-		for (const auto& item : event.sounds)
+		for (const auto& music_item : event.sounds)
 		{
-			SoundSystemFMOD::load(
-				this_ptr->get_sound_system_fmod(),
-				&item.name,
-				item.stream,
-				item.is_3d,
-				item.min_distance
+			fmod->load(
+				music_item.name,
+				music_item.stream,
+				music_item.is_3d,
+				music_item.min_distance
 			);
 		}
 	}

@@ -4,18 +4,25 @@
 #include "minecraft_app.hpp"
 #include <string>
 
-bool Options::opt_vars::use_centered_gui = false;
-Options::Option Options::USE_CENTERED_GUI
+bool Options::opt_vars::gui::centered_hud = false;
+bool Options::opt_vars::graphics::better_grass = false;
+
+Options::Option Options::CENTERED_HUD
 {
 	option_type::boolean,
-	"options.use_centered_gui"
+	"options.gui.centered_hud"
+};
+
+Options::Option Options::BETTER_GRASS
+{
+	option_type::boolean,
+	"options.graphics.better_grass"
 };
 
 Options::Option::Option(Options::option_type type, const std::string& name) noexcept:
 	opt_type(type),
 	opt_name(name)
 {}
-
 
 Options::option_type Options::Option::type() const noexcept
 {
@@ -34,23 +41,32 @@ Options::get_boolean_value_type Options::get_boolean_value_orig = nullptr;
 
 void Options::toggle(Options* this_ptr, const Option* option, int step)
 {
-	if (option == &Options::USE_CENTERED_GUI)
-		opt_vars::use_centered_gui = not opt_vars::use_centered_gui;
-	options_toggle_orig(this_ptr, option, step);
+	if (option == &CENTERED_HUD)
+		opt_vars::gui::centered_hud = not opt_vars::gui::centered_hud;
+	else if (option == &BETTER_GRASS)
+		opt_vars::graphics::better_grass = not opt_vars::graphics::better_grass;
+	else
+		options_toggle_orig(this_ptr, option, step);
 }
 
 void Options::set_boolean_value(Options* this_ptr, const Option* option, bool value)
 {
-	if (option == &Options::USE_CENTERED_GUI)
-		opt_vars::use_centered_gui = value;
-	set_boolean_value_orig(this_ptr, option, value);
+	if (option == &CENTERED_HUD)
+		opt_vars::gui::centered_hud = value;
+	else if (option == &BETTER_GRASS)
+		opt_vars::graphics::better_grass = value;
+	else
+		set_boolean_value_orig(this_ptr, option, value);
 }
 
 bool Options::get_boolean_value(Options* this_ptr, const Option* option)
 {
-	if (option == &Options::USE_CENTERED_GUI)
-		return opt_vars::use_centered_gui;
-	return get_boolean_value_orig(this_ptr, option);
+	if (option == &CENTERED_HUD)
+		return opt_vars::gui::centered_hud;
+	else if (option == &BETTER_GRASS)
+		return opt_vars::graphics::better_grass;
+	else
+		return get_boolean_value_orig(this_ptr, option);
 }
 
 void Options::install() noexcept
