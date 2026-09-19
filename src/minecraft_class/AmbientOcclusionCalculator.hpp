@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_AMBIENTOCCLUSIONCALCULATOR_HPP
-#define MINECRAFT_CLASS_AMBIENTOCCLUSIONCALCULATOR_HPP
+#pragma once
 
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/BlockPos.hpp"
@@ -23,4 +22,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

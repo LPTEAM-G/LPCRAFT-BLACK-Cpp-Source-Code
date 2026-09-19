@@ -1,10 +1,8 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_COLOR_HPP
-#define MINECRAFT_CLASS_COLOR_HPP
+#pragma once
 
 class Color
 {
 	
 };
 
-#endif

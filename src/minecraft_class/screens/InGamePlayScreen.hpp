@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_SCREENS_INGAMEPLAYSCREEN_HPP
-#define MINECRAFT_CLASS_SCREENS_INGAMEPLAYSCREEN_HPP
+#pragma once
 
 #include "minecraft_class/Entity.hpp"
 #include "minecraft_class/Vec3.hpp"
@@ -19,4 +18,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

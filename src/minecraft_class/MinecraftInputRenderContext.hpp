@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_MINECRAFTINPUTRENDERCONTEXT_HPP
-#define MINECRAFT_CLASS_MINECRAFTINPUTRENDERCONTEXT_HPP
+#pragma once
 
 #include "minecraft_class/RectangleArea.hpp"
 
@@ -15,4 +14,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

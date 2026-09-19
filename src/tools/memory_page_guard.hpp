@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef TOOLS_MEMORY_PAGE_GUARD_HPP
-#define TOOLS_MEMORY_PAGE_GUARD_HPP
+#pragma once
 
 #include <bits/sysconf.h>
 #include <cstdint>
@@ -82,4 +81,3 @@ namespace tools
 	using vtable_area_writable_guard = vtable_area_guard<protect_type::rw>;
 }
 
-#endif

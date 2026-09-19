@@ -1,7 +1,6 @@
 //Copyright (c) 2026 LPTEAM
 //对MCPE中已经使用的JsonCpp的二次封装
-#ifndef JSON_CPP_HPP
-#define JSON_CPP_HPP
+#pragma once
 
 #include <string>
 #include <vector>
@@ -45,4 +44,3 @@ namespace json_cpp
 	};
 }
 
-#endif

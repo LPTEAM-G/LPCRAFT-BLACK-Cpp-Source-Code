@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_LEVELRENDERER_HPP
-#define MINECRAFT_CLASS_LEVELRENDERER_HPP
+#pragma once
 
 #include "minecraft_class/Entity.hpp"
 #include "minecraft_class/FrustumCuller.hpp"
@@ -51,4 +50,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

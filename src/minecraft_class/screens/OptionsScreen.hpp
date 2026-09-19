@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_SCREENS_OPTIONSSCREEN_HPP
-#define MINECRAFT_CLASS_SCREENS_OPTIONSSCREEN_HPP
+#pragma once
 
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/gui_components/OptionsPane.hpp"
@@ -23,4 +22,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

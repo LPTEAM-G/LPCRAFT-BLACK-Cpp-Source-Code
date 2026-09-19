@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef TOOLS_MEMORY_WRITER_HPP
-#define TOOLS_MEMORY_WRITER_HPP
+#pragma once
 
 #include <cstdint>
 #include <cstring>
@@ -15,4 +14,3 @@ namespace tools
 	}
 }
 
-#endif

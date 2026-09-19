@@ -1,8 +1,6 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_ENTITY_HPP
-#define MINECRAFT_CLASS_ENTITY_HPP
+#pragma once
 
 class Entity
 {};
 
-#endif

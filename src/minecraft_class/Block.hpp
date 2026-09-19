@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRACT_CLASS_BLOCK_HPP
-#define MINECRACT_CLASS_BLOCK_HPP
+#pragma once
 
 #include "minecraft_class/Material.hpp"
 #include "minecraft_class/TextureUVCoordinateSet.hpp"
@@ -13,4 +12,3 @@ public:
 	TextureUVCoordinateSet* get_texture_virtual(signed char face) noexcept;
 };
 
-#endif

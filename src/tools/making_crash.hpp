@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef TOOLS_MAKING_CRASH_HPP
-#define TOOLS_MAKING_CRASH_HPP
+#pragma once
 
 namespace tools
 {
@@ -12,4 +11,3 @@ namespace tools
 	}
 }
 
-#endif

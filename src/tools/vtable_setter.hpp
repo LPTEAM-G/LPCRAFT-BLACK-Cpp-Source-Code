@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef TOOLS_VTABLE_SETTER_HPP
-#define TOOLS_VTABLE_SETTER_HPP
+#pragma once
 
 #include "tools/memory_page_guard.hpp"
 
@@ -35,4 +34,3 @@ namespace tools
 	};
 }
 
-#endif

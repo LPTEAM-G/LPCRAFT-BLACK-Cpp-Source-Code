@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_BLOCKS_BLOCKTESSELLATOR_HPP
-#define MINECRAFT_CLASS_BLOCKS_BLOCKTESSELLATOR_HPP
+#pragma once
 
 #include "minecraft_class/Block.hpp"
 #include "minecraft_class/BlockOccluder.hpp"
@@ -38,4 +37,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_SOUND_ABOUT_SOUNDSYSTEMFMOD_HPP
-#define MINECRAFT_CLASS_SOUND_ABOUT_SOUNDSYSTEMFMOD_HPP
+#pragma once
 
 #include <string>
 
@@ -37,4 +36,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

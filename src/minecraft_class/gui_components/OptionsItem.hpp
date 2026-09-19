@@ -1,5 +1,4 @@
-#ifndef MINECRAFT_CLASS_GUI_COMPONENTS_OPTIONSITEM_HPP
-#define MINECRAFT_CLASS_GUI_COMPONENTS_OPTIONSITEM_HPP
+#pragma once
 
 
 #include "minecraft_class/gui_components/GuiElement.hpp"
@@ -25,4 +24,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

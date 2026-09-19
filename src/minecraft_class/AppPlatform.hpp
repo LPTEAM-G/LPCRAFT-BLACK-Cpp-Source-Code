@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_APPPLATFORM_HPP
-#define MINECRAFT_CLASS_APPPLATFORM_HPP
+#pragma once
 
 #include <string>
 
@@ -15,4 +14,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

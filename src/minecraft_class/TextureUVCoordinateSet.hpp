@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_TEXTUREUVCOORDINATESET_HPP
-#define MINECRAFT_CLASS_TEXTUREUVCOORDINATESET_HPP
+#pragma once
 
 struct TextureUVCoordinateSet
 {
@@ -10,4 +9,3 @@ struct TextureUVCoordinateSet
 	unsigned int texture_file;
 };
 
-#endif

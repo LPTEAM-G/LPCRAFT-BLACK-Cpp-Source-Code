@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_RECTANGLEAREA_HPP
-#define MINECRAFT_CLASS_RECTANGLEAREA_HPP
+#pragma once
 
 struct RectangleArea
 {
@@ -10,4 +9,3 @@ struct RectangleArea
 	float y_end;
 };
 
-#endif

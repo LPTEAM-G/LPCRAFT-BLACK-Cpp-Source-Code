@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_SOUND_ABOUT_SOUNDEVENT_HPP
-#define MINECRAFT_CLASS_SOUND_ABOUT_SOUNDEVENT_HPP
+#pragma once
 
 #include "minecraft_class/sound_about/SoundItem.hpp"
 #include <string>
@@ -17,4 +16,3 @@ static_assert(
 	"SoundItem must be 16 bytes in size"
 );
 
-#endif

@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_BLOCKS_GRASSBLOCK_HPP
-#define MINECRAFT_CLASS_BLOCKS_GRASSBLOCK_HPP
+#pragma once
 
 #include "minecraft_class/BlockPos.hpp"
 #include "minecraft_class/BlockSource.hpp"
@@ -27,4 +26,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

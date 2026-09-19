@@ -1,5 +1,4 @@
-#ifndef BLOCK_ID_ENUM_HPP
-#define BLOCK_ID_ENUM_HPP
+#pragma once
 
 namespace block_id_enum
 {
@@ -9,4 +8,3 @@ namespace block_id_enum
 	constexpr id_type snow_block = 80;
 }
 
-#endif

@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_SOUND_ABOUT_SOUNDENGINE_HPP
-#define MINECRAFT_CLASS_SOUND_ABOUT_SOUNDENGINE_HPP
+#pragma once
 
 #include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/sound_about/SoundRepository.hpp"
@@ -22,4 +21,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef MINECRAFT_CLASS_MINECRAFT_HPP
-#define MINECRAFT_CLASS_MINECRAFT_HPP
+#pragma once
 
 #include "minecraft_class/Level.hpp"
 
@@ -9,4 +8,3 @@ public:
 	Level* get_level() noexcept;
 };
 
-#endif

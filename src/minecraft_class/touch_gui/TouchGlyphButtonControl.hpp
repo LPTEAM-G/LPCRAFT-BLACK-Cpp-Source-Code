@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_TOUCH_GUI_TOUCHGLYPHBUTTONCONTROL_HPP
-#define MINECRAFT_CLASS_TOUCH_GUI_TOUCHGLYPHBUTTONCONTROL_HPP
+#pragma once
 
 #include "minecraft_class/RectangleArea.hpp"
 #include "minecraft_class/touch_gui/ButtonColors.hpp"
@@ -49,4 +48,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_OPTIONS_ABOUT_PROPERTYFILE_HPP
-#define MINECRAFT_CLASS_OPTIONS_ABOUT_PROPERTYFILE_HPP
+#pragma once
 
 #include "Options.hpp"
 #include <string>
@@ -32,4 +31,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

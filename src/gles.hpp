@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef GLES_HPP
-#define GLES_HPP
+#pragma once
 
 using gl_enum = unsigned int;
 using gl_boolean = unsigned char;
@@ -30,4 +29,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

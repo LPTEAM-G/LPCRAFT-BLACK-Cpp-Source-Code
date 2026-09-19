@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_APP_HPP
-#define MINECRAFT_APP_HPP
+#pragma once
 
 #include <cstdint>
 
@@ -25,4 +24,3 @@ public:
 	}
 };
 
-#endif

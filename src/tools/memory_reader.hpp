@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef TOOLS_MEMORY_READER_HPP
-#define TOOLS_MEMORY_READER_HPP
+#pragma once
 
 #include <cstring>
 
@@ -15,4 +14,3 @@ namespace tools
 	}
 }
 
-#endif

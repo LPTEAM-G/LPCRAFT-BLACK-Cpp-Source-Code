@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_SCREENCHOOSER_HPP
-#define MINECRAFT_CLASS_SCREENCHOOSER_HPP
+#pragma once
 
 class ScreenChooser
 {
@@ -14,4 +13,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_GUI_COMPONENTS_OPTIONSGROUP_HPP
-#define MINECRAFT_CLASS_GUI_COMPONENTS_OPTIONSGROUP_HPP
+#pragma once
 
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/gui_components/OptionsItem.hpp"
@@ -26,4 +25,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

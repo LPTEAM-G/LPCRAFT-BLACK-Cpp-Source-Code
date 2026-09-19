@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_OPTIONS_ABOUT_OPTIONS_HPP
-#define MINECRAFT_CLASS_OPTIONS_ABOUT_OPTIONS_HPP
+#pragma once
 
 #include <string>
 
@@ -60,4 +59,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif

@@ -1,7 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MOD_INSTALL_HPP
-#define MOD_INSTALL_HPP
+#pragma once
 
 void mod_install() noexcept;
 
-#endif

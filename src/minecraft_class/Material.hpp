@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_MATERIAL_HPP
-#define MINECRAFT_CLASS_MATERIAL_HPP
+#pragma once
 
 #include "minecraft_class/MaterialType.hpp"
 
@@ -11,4 +10,3 @@ public:
 	bool is_type(MaterialType type) noexcept;
 };
 
-#endif

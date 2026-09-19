@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_VEC3_HPP
-#define MINECRAFT_CLASS_VEC3_HPP
+#pragma once
 
 struct Vec3
 {
@@ -9,4 +8,3 @@ struct Vec3
 	float z;
 };
 
-#endif

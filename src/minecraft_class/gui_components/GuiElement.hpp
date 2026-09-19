@@ -1,5 +1,4 @@
-#ifndef MINECRAFT_CLASS_COMPONENTS_GUIELEMENTS_HPP
-#define MINECRAFT_CLASS_COMPONENTS_GUIELEMENTS_HPP
+#pragma once
 
 class GuiElement
 {
@@ -8,4 +7,3 @@ public:
 	void set_is_not_locked(bool flag) noexcept;
 };
 
-#endif

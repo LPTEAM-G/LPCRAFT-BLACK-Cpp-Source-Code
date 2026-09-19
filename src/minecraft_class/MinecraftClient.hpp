@@ -1,6 +1,5 @@
 //Copyright (c) 2026 LPTEAM
-#ifndef MINECRAFT_CLASS_MINECRAFTCLIENT_HPP
-#define MINECRAFT_CLASS_MINECRAFTCLIENT_HPP
+#pragma once
 
 #include <string>
 #include "minecraft_class/Minecraft.hpp"
@@ -27,4 +26,3 @@ public:
 	static void install() noexcept;
 };
 
-#endif
