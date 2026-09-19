@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "GuiElement.hpp"
 #include <cstdint>
 

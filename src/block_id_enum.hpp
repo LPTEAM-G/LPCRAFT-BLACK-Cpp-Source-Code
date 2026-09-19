@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #pragma once
 
 namespace block_id_enum

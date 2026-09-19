@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "OptionsItem.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"

@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "Minecraft.hpp"
 #include "minecraft_class/Level.hpp"
 #include <cstdint>

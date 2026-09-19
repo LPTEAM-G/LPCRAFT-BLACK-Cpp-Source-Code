@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "memory_printer.hpp"
 #include "log_lib.hpp"
 #include <sstream>
