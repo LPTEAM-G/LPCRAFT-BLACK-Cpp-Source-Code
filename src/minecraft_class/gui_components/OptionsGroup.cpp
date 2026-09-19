@@ -3,6 +3,7 @@
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
+#include "minecraft_class/gui_components/OptionsItem.hpp"
 #include <cstdint>
 
 OptionsGroup::add_option_item_type OptionsGroup::add_option_item_orig = nullptr;
@@ -12,9 +13,12 @@ void OptionsGroup::add_option_item_impl(OptionsGroup* this_ptr, const Options::O
 	add_option_item_orig(this_ptr, option, mcc);
 }
 
-void OptionsGroup::add_option_item(const Options::Option& option, MinecraftClient* mcc) noexcept
+OptionsItem* OptionsGroup::add_option_item(const Options::Option& option, MinecraftClient* mcc) noexcept
 {
 	add_option_item_impl(this, &option, mcc);
+	vector_item& items = get_items();
+	auto& item = items.back();
+	return item.get();
 }
 
 OptionsGroup::vector_item& OptionsGroup::get_items() noexcept

@@ -19,7 +19,7 @@ public:
 
 	using vector_item = std::vector<std::shared_ptr<OptionsItem>>;
 
-	void add_option_item(const Options::Option& option, MinecraftClient* mcc) noexcept;
+	OptionsItem* add_option_item(const Options::Option& option, MinecraftClient* mcc) noexcept;
 
 	vector_item& get_items() noexcept;
 

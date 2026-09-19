@@ -8,6 +8,7 @@
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/MinecraftInputRenderContext.hpp"
+#include "minecraft_class/gui_components/OptionsItem.hpp"
 #include "minecraft_class/gui_components/OptionsPane.hpp"
 #include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/options_about/PropertyFile.hpp"
@@ -32,6 +33,7 @@ void mod_install() noexcept
 	Options::install();
 	OptionsPane::install();
 	OptionsGroup::install();
+	OptionsItem::install();
 	PropertyFile::install();
 
 	//about sound

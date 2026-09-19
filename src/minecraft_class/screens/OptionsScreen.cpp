@@ -8,8 +8,10 @@
 #include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/gui_components/OptionsGroup.hpp"
 #include <cstdint>
+#include <cstdio>
 #include <string>
 #include <utility>
+#include "log_lib.hpp"
 
 OptionsScreen::_generateOptionScreensDefaultType OptionsScreen::_generateOptionScreensDefaultOrig = nullptr;
 
@@ -23,8 +25,8 @@ int OptionsScreen::_generate_option_screens_default(OptionsScreen* this_ptr)
 	auto& panes = this_ptr->get_panes();
 	auto graphics_pane = panes[2];
 	auto graphics_group = graphics_pane->get_groups()[0];
-	graphics_pane->create_options_group("options.group.gui", true);
-	auto gui_group = graphics_pane->get_groups()[2];
+	auto gui_group = graphics_pane->create_options_group("options.group.gui", true);
+	//auto gui_group = graphics_pane->get_groups()[2];
 
 	int gui_scale_index = 2;
 	gui_group->get_items().push_back(std::move(graphics_group->get_items()[gui_scale_index]));
@@ -34,14 +36,10 @@ int OptionsScreen::_generate_option_screens_default(OptionsScreen* this_ptr)
 		this_ptr->get_minecraft_client()
 	);
 
-	//不在游戏中
-	if (level == nullptr)
-	{
-		graphics_group->add_option_item(
-			Options::BETTER_GRASS,
-			this_ptr->get_minecraft_client()
-		);
-	}
+	auto better_grass_item = graphics_group->add_option_item(
+		Options::BETTER_GRASS,
+		this_ptr->get_minecraft_client()
+	);
 
 	std::swap(graphics_pane->get_groups()[1], graphics_pane->get_groups()[2]);
 	std::swap(graphics_pane->get_groups()[0], graphics_pane->get_groups()[1]);
