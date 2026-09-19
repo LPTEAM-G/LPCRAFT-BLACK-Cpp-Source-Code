@@ -10,7 +10,14 @@ PodzolBlock::get_texture_with_data_type PodzolBlock::get_texture_with_data_orig 
 TextureUVCoordinateSet* PodzolBlock::get_texture_with_data_impl(PodzolBlock* this_ptr, signed char face, int data)
 {
 	if (not Options::opt_vars::graphics::better_grass)
-		return get_texture_with_data_orig(this_ptr, face, data);
+	{
+		if (face == 0)
+			return this_ptr->get_bottom_texture();
+		else if (face == 1)
+			return this_ptr->get_top_texture();
+		else
+			return this_ptr->get_side_texture();
+	}
 
 	if (face == 0)
 		return this_ptr->get_bottom_texture();
@@ -21,6 +28,11 @@ TextureUVCoordinateSet* PodzolBlock::get_texture_with_data_impl(PodzolBlock* thi
 TextureUVCoordinateSet* PodzolBlock::get_top_texture() noexcept
 {
 	return (TextureUVCoordinateSet*)((uintptr_t)this + 176);
+}
+
+TextureUVCoordinateSet* PodzolBlock::get_side_texture() noexcept
+{
+	return (TextureUVCoordinateSet*)((uintptr_t)this + 200);
 }
 
 TextureUVCoordinateSet* PodzolBlock::get_bottom_texture() noexcept

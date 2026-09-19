@@ -17,6 +17,8 @@
 #include "minecraft_class/sound_about/SoundEngine.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "minecraft_class/blocks/LiquidBlock.hpp"
+#include "minecraft_class/blocks/GrassPathBlock.hpp"
+#include "minecraft_class/blocks/MyceliumBlock.hpp"
 #include "minecraft_class/gui_components/OptionsGroup.hpp"
 #include "minecraft_class/screens/InGamePlayScreen.hpp"
 #include "minecraft_class/screens/OptionsScreen.hpp"
@@ -56,7 +58,9 @@ void mod_install() noexcept
 
 	//about blocks
 	GrassBlock::install();
+	GrassPathBlock::install();
 	PodzolBlock::install();
+	MyceliumBlock::install();
 	LiquidBlock::install();
 	
 	LevelRenderer::install();
