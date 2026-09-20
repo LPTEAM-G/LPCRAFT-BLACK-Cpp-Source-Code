@@ -5,6 +5,7 @@
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/RectangleArea.hpp"
 #include <cstring>
+#include <memory>
 #include "minecraft_class/touch_gui/ButtonColors.hpp"
 
 TouchGlyphButtonControl::constructor_type TouchGlyphButtonControl::constructor_orig = nullptr;
@@ -26,7 +27,16 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 	bool p_b2
 )
 {
-	static float small_button_size = 0.0f;
+	struct small_button_rect
+	{
+		float width;
+		float height;
+		float center_x;
+	};
+	static std::shared_ptr<small_button_rect> rect_ptr = std::make_shared<small_button_rect>();
+	static float screen_width = 0.0f;
+	screen_width = MinecraftClient::instance->get_screen_width();
+
 	//UI的构造函数有时会突然在MinecraftClient之前构造
 	//所以这里必须判空
 	if (str == "button.chat" and MinecraftClient::instance != nullptr)
@@ -34,20 +44,21 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 		RectangleArea rect = rect_getter();
 		float button_width = rect.x_end - rect.x_start;
 		float button_height = rect.y_end - rect.y_start;
-		//打算在这里存储按钮尺寸
-		small_button_size = button_width;
-		float screen_width = MinecraftClient::instance->get_screen_width();
-		float center_x_start = (screen_width - button_width) / 2;
+
+		rect_ptr->width = button_width;
+		rect_ptr->height = button_height;
+		rect_ptr->center_x = (screen_width - rect_ptr->width) / 2;
+
 		//按值捕获, 防止出作用域后访问空指针
 		rect_getter = [=]() -> RectangleArea
 		{
 			//此物同时决定了视觉位置和触摸位置
 			return RectangleArea
 			{
-				.x_start = center_x_start,
-				.x_end = center_x_start + button_width,
+				.x_start = rect_ptr->center_x,
+				.x_end = rect_ptr->center_x + rect_ptr->width,
 				.y_start = 0.0f,
-				.y_end = button_height
+				.y_end = rect_ptr->height
 			};
 		};
 	}
@@ -55,17 +66,15 @@ TouchGlyphButtonControl* TouchGlyphButtonControl::constructor(
 	//这里让其重新可以绘制, 并居于聊天按钮右侧
 	else if (str == "button.pause" and MinecraftClient::instance != nullptr)
 	{
-		float screen_width = MinecraftClient::instance->get_screen_width();
-		float center_x_start = (screen_width - small_button_size) / 2;
-		float pause_button_x_start = center_x_start + small_button_size;
 		rect_getter = [=]() -> RectangleArea
 		{
+			
 			return RectangleArea
 			{
-				.x_start = pause_button_x_start,
-				.x_end = pause_button_x_start + small_button_size,
+				.x_start = rect_ptr->center_x + rect_ptr->width,
+				.x_end = rect_ptr->center_x + rect_ptr->width * 2,
 				.y_start = 0.0f,
-				.y_end = small_button_size
+				.y_end = rect_ptr->height
 			};
 		};
 	}
