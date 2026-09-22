@@ -11,4 +11,3 @@ public:
 	Material* get_material() noexcept;
 	TextureUVCoordinateSet* get_texture_virtual(signed char face) noexcept;
 };
-

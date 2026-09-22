@@ -8,4 +8,3 @@ class Minecraft
 public:
 	Level* get_level() noexcept;
 };
-

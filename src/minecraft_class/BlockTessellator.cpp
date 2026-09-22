@@ -3,7 +3,7 @@
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/AmbientOcclusionCalculator.hpp"
-#include "minecraft_class/Block.hpp"
+#include "minecraft_class/blocks/Block.hpp"
 #include "minecraft_class/BlockSource.hpp"
 #include <asm-generic/mman-common.h>
 #include <bits/sysconf.h>

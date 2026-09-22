@@ -47,4 +47,3 @@ public:
 
 	static void install() noexcept;
 };
-

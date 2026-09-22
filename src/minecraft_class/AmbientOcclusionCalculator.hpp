@@ -1,7 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
-#include "minecraft_class/Block.hpp"
+#include "minecraft_class/blocks/Block.hpp"
 #include "minecraft_class/BlockPos.hpp"
 
 //向前声明
@@ -21,4 +21,3 @@ public:
 
 	static void install() noexcept;
 };
-

@@ -1,7 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
-#include "minecraft_class/Block.hpp"
+#include "minecraft_class/blocks/Block.hpp"
 #include "minecraft_class/BlockOccluder.hpp"
 #include "minecraft_class/BlockPos.hpp"
 #include "minecraft_class/BlockSource.hpp"
@@ -36,4 +36,3 @@ public:
 
 	static void install() noexcept;
 };
-

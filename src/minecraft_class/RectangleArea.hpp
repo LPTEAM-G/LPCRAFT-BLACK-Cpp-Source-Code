@@ -8,4 +8,3 @@ struct RectangleArea
 	float y_start;
 	float y_end;
 };
-

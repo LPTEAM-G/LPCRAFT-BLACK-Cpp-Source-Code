@@ -5,4 +5,3 @@
 
 #define MSHook(target, replace, orig) \
 MSHookFunction((void*)(target), (void*)(replace), (void**)(&(orig)))
-

@@ -9,4 +9,3 @@ public:
 	MaterialType get_type() noexcept;
 	bool is_type(MaterialType type) noexcept;
 };
-

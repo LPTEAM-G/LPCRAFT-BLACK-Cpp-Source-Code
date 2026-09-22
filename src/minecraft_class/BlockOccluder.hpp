@@ -6,4 +6,3 @@ class BlockOccluder
 public:
 	bool occludes(signed char face) noexcept;
 };
-

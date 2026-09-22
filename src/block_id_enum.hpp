@@ -8,4 +8,3 @@ namespace block_id_enum
 	constexpr id_type grass_block = 2;
 	constexpr id_type snow_block = 80;
 }
-

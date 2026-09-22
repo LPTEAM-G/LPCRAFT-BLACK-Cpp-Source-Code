@@ -10,4 +10,3 @@ namespace tools
 		crash_func();
 	}
 }
-

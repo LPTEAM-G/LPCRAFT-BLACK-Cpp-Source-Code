@@ -8,4 +8,3 @@ struct TextureUVCoordinateSet
 	//已废弃的成员
 	unsigned int texture_file;
 };
-

@@ -23,4 +23,3 @@ public:
 		return (T*)(game_lib_base + offset);
 	}
 };
-

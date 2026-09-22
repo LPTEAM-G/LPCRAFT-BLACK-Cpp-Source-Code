@@ -80,4 +80,3 @@ namespace tools
 	using vtable_area_guard = memory_page_guard<protect_type::r, after>;
 	using vtable_area_writable_guard = vtable_area_guard<protect_type::rw>;
 }
-

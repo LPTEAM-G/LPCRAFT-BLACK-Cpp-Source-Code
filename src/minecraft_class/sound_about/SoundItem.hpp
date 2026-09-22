@@ -16,4 +16,3 @@ static_assert(
 	sizeof(SoundItem) == 16,
 	"SoundItem must be 16 bytes in size"
 );
-

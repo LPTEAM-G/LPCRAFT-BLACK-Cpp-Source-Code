@@ -13,4 +13,3 @@ namespace tools
 		__builtin___clear_cache((char*)target, (char*)((uintptr_t)target + sizeof(T)));
 	}
 }
-

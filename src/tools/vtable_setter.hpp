@@ -33,4 +33,3 @@ namespace tools
 		~vtable_setter() noexcept;
 	};
 }
-

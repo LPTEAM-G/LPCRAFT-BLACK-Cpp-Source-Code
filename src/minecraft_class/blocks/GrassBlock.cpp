@@ -7,7 +7,7 @@
 #include "block_id_enum.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
-#include "minecraft_class/Block.hpp"
+#include "minecraft_class/blocks/Block.hpp"
 #include "minecraft_class/BlockPos.hpp"
 #include "minecraft_class/BlockSource.hpp"
 #include "minecraft_class/TextureUVCoordinateSet.hpp"

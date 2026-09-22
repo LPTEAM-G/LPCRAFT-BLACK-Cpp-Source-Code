@@ -13,4 +13,3 @@ public:
 	static std::string& home_path() noexcept;
 	static void install() noexcept;
 };
-

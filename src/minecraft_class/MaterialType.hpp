@@ -6,4 +6,3 @@ enum MaterialType
 	top_snow = 20,
 	snow_block = 21,
 };
-

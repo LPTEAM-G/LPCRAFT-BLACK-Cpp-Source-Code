@@ -43,4 +43,3 @@ namespace json_cpp
 		~reader() noexcept;
 	};
 }
-

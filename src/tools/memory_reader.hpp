@@ -13,4 +13,3 @@ namespace tools
 		return getter;
 	}
 }
-

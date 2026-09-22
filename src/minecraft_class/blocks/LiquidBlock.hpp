@@ -12,4 +12,3 @@ public:
 	static TextureUVCoordinateSet* getTexture(LiquidBlock* this_ptr, signed char);
 	static void install() noexcept;
 };
-

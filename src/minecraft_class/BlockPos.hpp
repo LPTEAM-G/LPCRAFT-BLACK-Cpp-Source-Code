@@ -7,4 +7,3 @@ struct BlockPos
 	int y;
 	int z;
 };
-
