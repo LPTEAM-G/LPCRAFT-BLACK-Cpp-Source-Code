@@ -1,15 +1,10 @@
+//Copyright (c) 2026 LPTEAM
 #pragma once
 
-#include "minecraft_class/InputRenderContext.hpp"
+#include "minecraft_class/render_context/InputRenderContext.hpp"
 
 class TouchControlSet
 {
 public:
-	using render_type = int(*)(TouchControlSet*, InputRenderContext*);
-	static render_type render_orig;
-	static int render_impl(TouchControlSet* this_ptr, InputRenderContext* context);
-
 	int render(InputRenderContext& context) noexcept;
-
-	static void install() noexcept;
 };

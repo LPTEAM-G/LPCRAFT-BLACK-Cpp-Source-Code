@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "TouchMapper.hpp"
 #include "minecraft_app.hpp"
 #include "hook_macro.hpp"

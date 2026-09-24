@@ -3,18 +3,16 @@
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/AppPlatform_android.hpp"
+#include "minecraft_class/Font.hpp"
 #include "minecraft_class/Minecraft.hpp"
-#include <algorithm>
 #include <cstdint>
 #include <cstdlib>
 #include <string>
-#include "log_lib.hpp"
 
 MinecraftClient* MinecraftClient::instance = nullptr;
 MinecraftClient::pushed_screen_list_type MinecraftClient::pushed_screen_list;
 
 MinecraftClient::constructor_type MinecraftClient::constructor_orig = nullptr;
-MinecraftClient::tickInputType MinecraftClient::tickInputOrig = nullptr;
 MinecraftClient::_pop_screen_type MinecraftClient::_pop_screen_orig = nullptr;
 MinecraftClient::push_screen_type MinecraftClient::push_screen_orig = nullptr;
 
@@ -43,6 +41,11 @@ Minecraft* MinecraftClient::get_server() noexcept
 	return *(Minecraft**)((uintptr_t)this + 96);
 }
 
+Font* MinecraftClient::get_font() noexcept
+{
+	return *(Font**)((uintptr_t)this + 124);
+}
+
 MinecraftClient::vector_screen& MinecraftClient::get_screen_stack() noexcept
 {
 	return *(vector_screen*)((uintptr_t)this + 140);
@@ -56,11 +59,6 @@ void MinecraftClient::constructor(MinecraftClient* this_ptr, int i, char** p_p_c
 	instance->get_final_worlds_dir_path() =
 		AppPlatform_android::get_instance()->get_user_data_path() +
 		"worlds";
-}
-
-int MinecraftClient::tick_input_impl(MinecraftClient* this_ptr)
-{
-	return tickInputOrig(this_ptr);
 }
 
 void MinecraftClient::push_screen_impl(
@@ -93,10 +91,6 @@ void MinecraftClient::install() noexcept
 	//_ZN15MinecraftClientC2EiPPc
 	void* constructor_target = minecraft_app::get_lib_thumb_function_ptr(0x2F28A8);
 	MSHook(constructor_target, constructor, constructor_orig);
-
-	//_ZN15MinecraftClient9tickInputEv
-	void* tick_input_target = minecraft_app::get_lib_thumb_function_ptr(0x3442FC);
-	MSHook(tick_input_target, tick_input_impl, tickInputOrig);
 
 	//_ZN15MinecraftClient10pushScreenESt10shared_ptrI14AbstractScreenEb
 	void* push_screen_target = minecraft_app::get_lib_thumb_function_ptr(0x330A30);

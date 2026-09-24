@@ -1,6 +1,7 @@
+//Copyright (c) 2026 LPTEAM
 #pragma once
 
-#include "minecraft_class/InputRenderContext.hpp"
+#include "minecraft_class/render_context/InputRenderContext.hpp"
 #include "minecraft_class/touch_gui/TouchControlSet.hpp"
 
 class TouchMapper

@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "minecraft_class/Font.hpp"
 #include "minecraft_class/screen_about/AbstractScreen.hpp"
 #include "minecraft_class/Minecraft.hpp"
 
@@ -22,9 +23,6 @@ public:
 	using constructor_type = void(*)(MinecraftClient*, int, char**);
 	static constructor_type constructor_orig;
 
-	using tickInputType = int(*)(MinecraftClient*);
-	static tickInputType tickInputOrig;
-
 	using push_screen_type = void(*)(MinecraftClient*, std::shared_ptr<AbstractScreen>, bool);
 	static push_screen_type push_screen_orig;
 	static void push_screen_impl(
@@ -38,7 +36,6 @@ public:
 	static void _pop_screen_impl(MinecraftClient* this_ptr);
 	
 	static void constructor(MinecraftClient* this_ptr, int, char**);
-	static int tick_input_impl(MinecraftClient* this_ptr);
 
 	using vector_screen = std::vector<std::shared_ptr<AbstractScreen>>;
 
@@ -46,6 +43,7 @@ public:
 	std::string& get_worlds_dirname() noexcept;
 	std::string& get_final_worlds_dir_path() noexcept;
 	int get_screen_width() noexcept;
+	Font* get_font() noexcept;
 	vector_screen& get_screen_stack() noexcept;
 	
 	Minecraft* get_server() noexcept;

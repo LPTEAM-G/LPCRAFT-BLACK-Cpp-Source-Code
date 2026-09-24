@@ -32,7 +32,6 @@ public:
 
 	static render_level_type render_level_orig;
 	static renderCloudsType renderCloudsOrig;
-	static renderChunksType renderChunksOrig;
 
 	static LevelRenderer* render_level(
 		LevelRenderer* this_ptr,
@@ -43,7 +42,6 @@ public:
 		float f2
 	);
 	static void renderClouds(LevelRenderer* this_ptr, float);
-	static void renderChunks(LevelRenderer* this_ptr, layer_index layer, float a3, bool flag);
 
 	Vec3& get_player_camera_pos() noexcept;
 

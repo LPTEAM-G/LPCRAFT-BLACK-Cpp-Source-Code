@@ -1,23 +1,19 @@
+//Copyright (c) 2026 LPTEAM
 #include "TouchControlSet.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
-#include "minecraft_class/InputRenderContext.hpp"
-
-TouchControlSet::render_type TouchControlSet::render_orig = nullptr;
-
-int TouchControlSet::render_impl(TouchControlSet* this_ptr, InputRenderContext* context)
-{
-	return render_orig(this_ptr, context);
-}
+#include "minecraft_class/render_context/InputRenderContext.hpp"
+#include "minecraft_class/render_context/MinecraftInputRenderContext.hpp"
 
 int TouchControlSet::render(InputRenderContext& context) noexcept
 {
-	return render_impl(this, &context);
-}
+	MinecraftInputRenderContext* ctx = (MinecraftInputRenderContext*)&context;
+	ctx->draw_text_at_once("Hello", 0, 0, {1,1,1,1});
+	ctx->draw_text_at_once("Fuck", 200, 300, {0,0,0,0.1});
 
-void TouchControlSet::install() noexcept
-{
-	//_ZNK15TouchControlSet6renderER18InputRenderContext
-	void* render_target = minecraft_app::get_lib_thumb_function_ptr(0x2B3168);
-	MSHook(render_target, render_impl, render_orig);
+	using render_type = int(*)(TouchControlSet*, InputRenderContext*);
+	render_type render_orig = (render_type)minecraft_app::get_lib_thumb_function_ptr(0x2B3168);
+	int result = render_orig(this, &context);
+	
+	return result;
 }

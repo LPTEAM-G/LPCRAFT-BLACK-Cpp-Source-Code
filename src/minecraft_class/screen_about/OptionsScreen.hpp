@@ -11,8 +11,8 @@ class OptionsScreen
 public:
 	using vector_panes = std::vector<std::shared_ptr<OptionsPane>>;
 	
-	using _generateOptionScreensDefaultType = int(*)(OptionsScreen* this_ptr);
-	static _generateOptionScreensDefaultType _generateOptionScreensDefaultOrig;
+	using _generate_option_screens_default_type = int(*)(OptionsScreen* this_ptr);
+	static _generate_option_screens_default_type _generate_option_screens_default_orig;
 
 	static int _generate_option_screens_default(OptionsScreen* this_ptr);
 

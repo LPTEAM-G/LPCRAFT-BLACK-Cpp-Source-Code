@@ -9,7 +9,6 @@ float LevelRenderer::increased_clouds_height = 5.0f;
 
 LevelRenderer::render_level_type LevelRenderer::render_level_orig = nullptr;
 LevelRenderer::renderCloudsType LevelRenderer::renderCloudsOrig = nullptr;
-LevelRenderer::renderChunksType LevelRenderer::renderChunksOrig = nullptr;
 
 LevelRenderer* LevelRenderer::render_level(LevelRenderer* this_ptr, Entity* entity, FrustumCuller* fc1, FrustumCuller* fc2, float f1, float f2)
 {
@@ -48,11 +47,6 @@ void LevelRenderer::renderClouds(LevelRenderer *this_ptr, float time)
 	this_ptr->get_player_camera_pos().y += increased_clouds_height;
 }
 
-void LevelRenderer::renderChunks(LevelRenderer* this_ptr, layer_index layer, float a3, bool flag)
-{
-	renderChunksOrig(this_ptr, layer, a3, flag);
-}
-
 Vec3& LevelRenderer::get_player_camera_pos() noexcept
 {
 	return *(Vec3*)(((uintptr_t)this + 7080));
@@ -67,8 +61,4 @@ void LevelRenderer::install() noexcept
 	//_ZN13LevelRenderer12renderCloudsEf
 	void* renderCloudsTarget = minecraft_app::get_lib_thumb_function_ptr(0x495838);
 	MSHook(renderCloudsTarget, renderClouds, renderCloudsOrig);
-	
-	//_ZN13LevelRenderer12renderChunksE12TerrainLayerfb
-	void* renderChunksTarget = minecraft_app::get_lib_thumb_function_ptr(0x445130);
-	MSHook(renderChunksTarget, renderChunks, renderChunksOrig);
 }

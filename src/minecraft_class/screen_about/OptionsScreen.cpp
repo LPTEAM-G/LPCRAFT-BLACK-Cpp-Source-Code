@@ -13,20 +13,16 @@
 #include <utility>
 #include "log_lib.hpp"
 
-OptionsScreen::_generateOptionScreensDefaultType OptionsScreen::_generateOptionScreensDefaultOrig = nullptr;
+OptionsScreen::_generate_option_screens_default_type OptionsScreen::_generate_option_screens_default_orig = nullptr;
 
 int OptionsScreen::_generate_option_screens_default(OptionsScreen* this_ptr)
 {
-	int result = _generateOptionScreensDefaultOrig(this_ptr);
-	
-	Minecraft* server = this_ptr->get_minecraft_client()->get_server();
-	Level* level = server->get_level();
-	
+	int result = _generate_option_screens_default_orig(this_ptr);
+
 	auto& panes = this_ptr->get_panes();
 	auto graphics_pane = panes[2];
 	auto graphics_group = graphics_pane->get_groups()[0];
 	auto gui_group = graphics_pane->create_options_group("options.group.gui", true);
-	//auto gui_group = graphics_pane->get_groups()[2];
 
 	int gui_scale_index = 2;
 	gui_group->get_items().push_back(std::move(graphics_group->get_items()[gui_scale_index]));
@@ -35,8 +31,8 @@ int OptionsScreen::_generate_option_screens_default(OptionsScreen* this_ptr)
 		Options::CENTERED_HUD,
 		this_ptr->get_minecraft_client()
 	);
-
-	auto better_grass_item = graphics_group->add_option_item(
+	
+	graphics_group->add_option_item(
 		Options::BETTER_GRASS,
 		this_ptr->get_minecraft_client()
 	);
@@ -60,10 +56,10 @@ OptionsScreen::vector_panes& OptionsScreen::get_panes() noexcept
 void OptionsScreen::install() noexcept
 {
 	//_ZN13OptionsScreen29_generateOptionScreensDefaultEv
-	void* _generateOptionScreensDefaultTarget = minecraft_app::get_lib_thumb_function_ptr(0x3F0C44);
+	void* _generate_option_screens_default_target = minecraft_app::get_lib_thumb_function_ptr(0x3F0C44);
 	MSHook(
-		_generateOptionScreensDefaultTarget,
+		_generate_option_screens_default_target,
 		_generate_option_screens_default,
-		_generateOptionScreensDefaultOrig
+		_generate_option_screens_default_orig
 	);
 }

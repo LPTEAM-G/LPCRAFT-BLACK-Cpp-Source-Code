@@ -17,8 +17,8 @@ Material* Block::get_material() noexcept
 
 TextureUVCoordinateSet* Block::get_texture_virtual(signed char face) noexcept
 {
-	using func_type = TextureUVCoordinateSet*(*)(Block*, signed char);
+	using get_texture_virtual_type = TextureUVCoordinateSet*(*)(Block*, signed char);
 	void** vtable = *((void***)this);
-	func_type vfunc = (func_type)(vtable[76]);
-	return vfunc(this, face);
+	get_texture_virtual_type get_texture_virtual_orig = (get_texture_virtual_type)(vtable[76]);
+	return get_texture_virtual_orig(this, face);
 }

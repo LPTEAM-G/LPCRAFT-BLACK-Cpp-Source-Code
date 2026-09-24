@@ -1,7 +1,10 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
-class Color
+struct Color
 {
-	
+	float r;
+	float g;
+	float b;
+	float a;
 };
