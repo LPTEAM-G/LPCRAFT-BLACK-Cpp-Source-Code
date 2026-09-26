@@ -3,7 +3,6 @@
 #include "minecraft_app.hpp"
 #include "minecraft_class/InputHandler.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
-#include "minecraft_class/Tessellator.hpp"
 #include "minecraft_class/render_context/InputRenderContext.hpp"
 #include "minecraft_class/render_context/MinecraftInputRenderContext.hpp"
 #include <cstdint>
@@ -13,7 +12,6 @@ MinecraftInputHandler::render_type MinecraftInputHandler::render_orig = nullptr;
 void MinecraftInputHandler::render_impl(MinecraftInputHandler* this_ptr)
 {
 	MinecraftInputRenderContext ctx{this_ptr->get_client()};
-	Tessellator::get_instance()->begin(0);
 	this_ptr->get_input_handler()->render(*(InputRenderContext*)&ctx);
 }
 

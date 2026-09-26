@@ -1,6 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #include "MinecraftClient.hpp"
 #include "hook_macro.hpp"
+#include "mce/TextureGroup.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/AppPlatform_android.hpp"
 #include "minecraft_class/Font.hpp"
@@ -49,6 +50,11 @@ Font* MinecraftClient::get_font() noexcept
 MinecraftClient::vector_screen& MinecraftClient::get_screen_stack() noexcept
 {
 	return *(vector_screen*)((uintptr_t)this + 140);
+}
+
+mce::TextureGroup* MinecraftClient::get_texture_group() noexcept
+{
+	return *(mce::TextureGroup**)((uintptr_t)this + 120);
 }
 
 void MinecraftClient::constructor(MinecraftClient* this_ptr, int i, char** p_p_c)

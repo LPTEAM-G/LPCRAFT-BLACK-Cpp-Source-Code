@@ -7,4 +7,7 @@ struct RectangleArea
 	float x_end;
 	float y_start;
 	float y_end;
+
+	float center_x() noexcept;
+	float center_y() noexcept;
 };

@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "mce/TextureGroup.hpp"
 #include "minecraft_class/Font.hpp"
 #include "minecraft_class/screen_about/AbstractScreen.hpp"
 #include "minecraft_class/Minecraft.hpp"
@@ -45,6 +46,7 @@ public:
 	int get_screen_width() noexcept;
 	Font* get_font() noexcept;
 	vector_screen& get_screen_stack() noexcept;
+	mce::TextureGroup* get_texture_group() noexcept;
 	
 	Minecraft* get_server() noexcept;
 
