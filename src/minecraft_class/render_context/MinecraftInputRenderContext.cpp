@@ -5,20 +5,28 @@
 #include "mce/TexturePtr.hpp"
 #include "minecraft_app.hpp"
 #include "hook_macro.hpp"
+#include "minecraft_class/Color.hpp"
 #include "minecraft_class/GuiData.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/RectangleArea.hpp"
 #include "minecraft_class/ScreenRenderer.hpp"
 #include "minecraft_class/Tessellator.hpp"
-#include "minecraft_class/render_context/InputRenderContext.hpp"
 #include "minecraft_class/screen_about/AbstractScreen.hpp"
+#include <string>
 
-void MinecraftInputRenderContext::square_element_type::draw() noexcept
+void MinecraftInputRenderContext::square_element_type::render() noexcept
 {
-	
+	Tessellator& tess = Tessellator::get_instance();
+	tess.begin(0).color(color);
+	//需要保证安装包里有一个纯白的图片, 路径应该由开发者自己负责
+	AbstractScreen::draw_rectangle_area(tess, rect, 1, 1, 1, 1);
+	mce::MaterialPtr* material = ScreenRenderer::get_screen_material(3);
+	mce::TextureGroup* texture_group = MinecraftClient::instance->get_texture_group();
+	mce::TexturePtr tex = texture_group->get_texture("LPCRAFT/white.png", false);
+	tess.draw(*material, tex);
 }
 
-void MinecraftInputRenderContext::image_element_type::draw() noexcept
+void MinecraftInputRenderContext::image_element_type::render() noexcept
 {
 	Tessellator& tess = Tessellator::get_instance();
 	tess.begin(0).color(color);
@@ -29,20 +37,10 @@ void MinecraftInputRenderContext::image_element_type::draw() noexcept
 	tess.draw(*material, tex);
 }
 
-void MinecraftInputRenderContext::TextItem::draw() noexcept
+void MinecraftInputRenderContext::text_element_type::render() noexcept
 {
 	Font* font = MinecraftClient::instance->get_font();
-	int width = font->get_line_length(text, false);
-	int height = font->get_text_height(text);
-
-	float center_x = rect.center_x();
-	float center_y = rect.center_y();
-
-	float inv_scale = GuiData::get_inv_gui_scale();
-	float draw_x = center_x * inv_scale - width * 0.5f;
-	float draw_y = center_y * inv_scale - height * 0.5f;
-
-	font->draw(text, draw_x, draw_y, color, false);
+	font->draw(text, x, y, color, false);
 }
 
 MinecraftInputRenderContext::render_element_type::render_element_type() noexcept:
@@ -79,11 +77,11 @@ MinecraftInputRenderContext::render_element_type::render_element_type(const imag
 	new (&element.image_element) image_element_type(image);
 }
 
-MinecraftInputRenderContext::render_element_type::render_element_type(const TextItem& text):
+MinecraftInputRenderContext::render_element_type::render_element_type(const text_element_type& text):
 	type(element_enum::text),
 	element()
 {
-	new (&element.text_element) TextItem(text);
+	new (&element.text_element) text_element_type(text);
 }
 
 MinecraftInputRenderContext::render_element_type::~render_element_type() noexcept
@@ -118,28 +116,15 @@ void MinecraftInputRenderContext::render_element_type::destroy() noexcept
 	type = element_enum::none;
 }
 
-void MinecraftInputRenderContext::render_element_type::draw() noexcept
+void MinecraftInputRenderContext::render_element_type::render() noexcept
 {
-	visitor(draw_visitor{});
+	visitor(render_visitor{});
 }
 
 MinecraftInputRenderContext::draw_rect_type MinecraftInputRenderContext::draw_rect_orig = nullptr;
 
 void MinecraftInputRenderContext::draw_rect_impl(MinecraftInputRenderContext* this_ptr, RectangleArea* area, int uv_x, int uv_y, int uv_width, int uv_height)
 {
-	this_ptr->render_elements.emplace_back(
-		image_element_type
-		{
-			.rect = *area,
-			.color = this_ptr->color,
-			.uv_x = uv_x,
-			.uv_y = uv_y,
-			.uv_width = uv_width,
-			.uv_height = uv_height,
-			.texture_path = "gui/gui.png"
-		}
-	);
-	//draw_rect_orig(this_ptr, area, uv_x, uv_y, uv_width, uv_height);
 }
 
 MinecraftInputRenderContext::MinecraftInputRenderContext(MinecraftClient* client) noexcept:
@@ -156,29 +141,103 @@ MinecraftInputRenderContext::~MinecraftInputRenderContext() noexcept
 {
 	for (auto& element : render_elements)
 	{
-		element.draw();
+		element.render();
 	}
+}
+
+RectangleArea MinecraftInputRenderContext::get_scaled_text_area(const std::string& text, float x, float y) noexcept
+{
+	float width = font->get_line_length(text, GuiData::get_gui_scale(), false);
+	float height = font->get_text_height(text) * GuiData::get_gui_scale();
+	return RectangleArea
+	{
+		x, y,
+		x + width, y + height
+	};
+}
+
+void MinecraftInputRenderContext::draw_square(float x, float y, float width, float height, const Color& color)
+{
+	render_elements.emplace_back(
+		square_element_type
+		{
+			RectangleArea(x, y, x + width, y + height),
+			color
+		}
+	);
+}
+
+void MinecraftInputRenderContext::draw_square(const RectangleArea& rect, const Color& color)
+{
+	render_elements.emplace_back(
+		square_element_type
+		{
+			rect,
+			color
+		}
+	);
+}
+
+void MinecraftInputRenderContext::draw_image(
+	const std::string& texture_path,
+	const RectangleArea& rect,
+	int uv_x, int uv_y,
+	int uv_width, int uv_height,
+	const Color& color)
+{
+	render_elements.emplace_back(
+		image_element_type
+		{
+			rect,
+			color,
+			uv_x, uv_y,
+			uv_width, uv_height,
+			texture_path
+		}
+	);
 }
 
 void MinecraftInputRenderContext::draw_text(
 	const std::string& text,
 	float x,
 	float y,
-	const Color& color) noexcept
+	const Color& color)
 {
-	InputRenderContext* base = (InputRenderContext*)this;
-	Font* font = MinecraftClient::instance->get_font();
-	float width = font->get_line_length(text, GuiData::get_gui_scale(), false);
-	float height = font->get_text_height(text) * GuiData::get_gui_scale();
-	RectangleArea rect
-	{
-		.x_start = x,
-		.x_end = x + width,
-		.y_start = y,
-		.y_end = y + height
-	};
-	
-	render_elements.emplace_back(text_element_type{rect, color, text});
+	render_elements.emplace_back(
+		text_element_type
+		{
+			x * GuiData::get_inv_gui_scale(),
+			y * GuiData::get_inv_gui_scale(),
+			color,
+			text
+		}
+	);
+}
+
+void MinecraftInputRenderContext::draw_text_centered_in_rect(
+	const std::string& text,
+	const RectangleArea& rect,
+	const Color& color)
+{
+	int text_logic_width = font->get_line_length(text, false);
+	int text_logic_height = font->get_text_height(text);
+
+	float center_x = rect.center_x();
+	float center_y = rect.center_y();
+
+	float inv_scale = GuiData::get_inv_gui_scale();
+	float draw_x = center_x * inv_scale - text_logic_width * 0.5f;
+	float draw_y = center_y * inv_scale - text_logic_height * 0.5f;
+
+	render_elements.emplace_back(
+		text_element_type
+		{
+			draw_x,
+			draw_y,
+			color,
+			text
+		}
+	);
 }
 
 void MinecraftInputRenderContext::install() noexcept

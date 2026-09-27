@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "GuiComponent.hpp"
 #include "minecraft_app.hpp"
 

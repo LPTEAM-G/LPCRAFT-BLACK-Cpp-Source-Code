@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "TextureGroup.hpp"
 #include "mce/TexturePtr.hpp"
 #include "minecraft_app.hpp"

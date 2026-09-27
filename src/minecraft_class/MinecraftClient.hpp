@@ -6,6 +6,7 @@
 #include <vector>
 #include "mce/TextureGroup.hpp"
 #include "minecraft_class/Font.hpp"
+#include "minecraft_class/LocalPlayer.hpp"
 #include "minecraft_class/screen_about/AbstractScreen.hpp"
 #include "minecraft_class/Minecraft.hpp"
 
@@ -47,6 +48,8 @@ public:
 	Font* get_font() noexcept;
 	vector_screen& get_screen_stack() noexcept;
 	mce::TextureGroup* get_texture_group() noexcept;
+	LocalPlayer* get_local_player() noexcept;
+	std::string get_local_player_position_text();
 	
 	Minecraft* get_server() noexcept;
 

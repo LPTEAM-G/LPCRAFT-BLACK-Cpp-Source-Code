@@ -3,8 +3,11 @@
 
 #include "minecraft_class/render_context/InputRenderContext.hpp"
 
-class InputHandler
+class TouchControl
 {
+private:
+	void** vtable;
+	
 public:
-	void render(InputRenderContext& context) noexcept;
+	void render_virtual(InputRenderContext& context);
 };

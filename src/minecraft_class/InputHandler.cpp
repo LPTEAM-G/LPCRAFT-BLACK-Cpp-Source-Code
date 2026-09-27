@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "InputHandler.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/render_context/InputRenderContext.hpp"

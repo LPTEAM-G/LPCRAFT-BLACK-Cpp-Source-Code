@@ -3,11 +3,9 @@
 
 #include "minecraft_class/Vec3.hpp"
 
-struct BlockPos
+struct AABB
 {
-	int x;
-	int y;
-	int z;
-
-	BlockPos(const Vec3& pos) noexcept;
+	Vec3 min;
+	Vec3 max;
+	bool unknown;
 };

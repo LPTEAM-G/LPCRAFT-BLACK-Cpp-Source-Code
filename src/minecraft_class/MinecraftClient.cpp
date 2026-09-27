@@ -4,8 +4,14 @@
 #include "mce/TextureGroup.hpp"
 #include "minecraft_app.hpp"
 #include "minecraft_class/AppPlatform_android.hpp"
+#include "minecraft_class/BlockPos.hpp"
+#include "minecraft_class/Entity.hpp"
 #include "minecraft_class/Font.hpp"
+#include "minecraft_class/I18n.hpp"
+#include "minecraft_class/LocalPlayer.hpp"
 #include "minecraft_class/Minecraft.hpp"
+#include "minecraft_class/Vec3.hpp"
+#include "tools/to_string.hpp"
 #include <cstdint>
 #include <cstdlib>
 #include <string>
@@ -90,6 +96,37 @@ void MinecraftClient::_pop_screen_impl(MinecraftClient* this_ptr)
 		pushed_screen_list.hud_screen = false;
 	}
 	_pop_screen_orig(this_ptr);
+}
+
+LocalPlayer* MinecraftClient::get_local_player() noexcept
+{
+	return *(LocalPlayer**)((uintptr_t)this + 288);
+}
+
+std::string MinecraftClient::get_local_player_position_text()
+{
+	LocalPlayer* local_player = get_local_player();
+	if (local_player == nullptr) return "";
+
+	Entity* base = (Entity*)local_player;
+	const Vec3& pos = base->get_pos();
+
+	Vec3 current_pos =
+	{
+		pos.x,
+		base->get_AABB().min.y,
+		pos.z
+	};
+
+	BlockPos block_pos{current_pos};
+	return I18n::get(
+		"map.position",
+		{
+			tools::to_string(block_pos.x),
+			tools::to_string(block_pos.y),
+			tools::to_string(block_pos.z)
+		}
+	);
 }
 
 void MinecraftClient::install() noexcept

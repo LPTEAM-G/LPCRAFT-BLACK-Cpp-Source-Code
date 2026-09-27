@@ -11,7 +11,7 @@ public:
 	static constructor_type constructor_orig;
 
 	static void constructor(TouchMapper* this_ptr);
-	static int render(TouchMapper* this_ptr, InputRenderContext* context) noexcept;
+	static void render(TouchMapper* this_ptr, InputRenderContext* context) noexcept;
 	TouchControlSet* get_control_set() noexcept;
 
 	static void install() noexcept;

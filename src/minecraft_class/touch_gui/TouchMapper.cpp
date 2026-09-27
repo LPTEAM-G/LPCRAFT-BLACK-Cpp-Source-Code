@@ -16,12 +16,13 @@ void TouchMapper::constructor(TouchMapper* this_ptr)
 	vs[7] = (void*)&TouchMapper::render;
 }
 
-int TouchMapper::render(TouchMapper* this_ptr, InputRenderContext* context) noexcept
+void TouchMapper::render(TouchMapper* this_ptr, InputRenderContext* context) noexcept
 {
+	//避免在leave_level_screen中仍然渲染
 	if (not MinecraftClient::pushed_screen_list.hud_screen)
-		return 0;
-	int result = this_ptr->get_control_set()->render(*context);
-	return result;
+		return;
+
+	this_ptr->get_control_set()->render(*context);
 }
 
 TouchControlSet* TouchMapper::get_control_set() noexcept

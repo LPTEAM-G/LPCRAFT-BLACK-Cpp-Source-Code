@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "MinecraftInputHandler.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"

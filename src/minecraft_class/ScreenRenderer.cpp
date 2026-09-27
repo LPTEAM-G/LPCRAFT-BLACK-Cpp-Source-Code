@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "ScreenRenderer.hpp"
 #include "mce/MaterialPtr.hpp"
 #include "minecraft_app.hpp"

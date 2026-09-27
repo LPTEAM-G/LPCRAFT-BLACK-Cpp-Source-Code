@@ -19,6 +19,7 @@
 #include "minecraft_class/screen_about/OptionsScreen.hpp"
 #include "minecraft_class/touch_gui/TouchGlyphButtonControl.hpp"
 #include "minecraft_class/touch_gui/TouchMapper.hpp"
+#include "minecraft_class/touch_gui/TouchTextButtonControl.hpp"
 
 void mod_install() noexcept
 {
@@ -37,6 +38,7 @@ void mod_install() noexcept
 	//about touch gui
 	TouchMapper::install();
 	TouchGlyphButtonControl::install();
+	TouchTextButtonControl::install();
 	MinecraftInputHandler::install();
 	MinecraftInputRenderContext::install();
 	

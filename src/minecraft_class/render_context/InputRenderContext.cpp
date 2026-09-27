@@ -1,3 +1,4 @@
+//Copyright (c) 2026 LPTEAM
 #include "InputRenderContext.hpp"
 #include "minecraft_class/Color.hpp"
 #include "minecraft_class/RectangleArea.hpp"

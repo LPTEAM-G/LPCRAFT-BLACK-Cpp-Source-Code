@@ -17,11 +17,17 @@ private:
 		RectangleArea rect;
 		Color color;
 		std::string text;
-
-		void draw() noexcept;
 	};
 
-	using text_element_type = TextItem;
+	struct text_element_type
+	{
+		float x;
+		float y;
+		Color color;
+		std::string text;
+
+		void render() noexcept;
+	};
 
 	struct image_element_type
 	{
@@ -33,7 +39,7 @@ private:
 		int uv_height;
 		std::string texture_path;
 
-		void draw() noexcept;
+		void render() noexcept;
 	};
 
 	struct square_element_type
@@ -41,7 +47,7 @@ private:
 		RectangleArea rect;
 		Color color;
 
-		void draw() noexcept;
+		void render() noexcept;
 	};
 
 	class render_element_type
@@ -124,12 +130,12 @@ private:
 			}
 		};
 
-		struct draw_visitor
+		struct render_visitor
 		{
 			template<typename T>
 			void operator()(T& src) const
 			{
-				src.draw();
+				src.render();
 			}
 		};
 		
@@ -146,7 +152,7 @@ private:
 		render_element_type& operator=(render_element_type&& other) noexcept;
 		~render_element_type() noexcept;
 
-		void draw() noexcept;
+		void render() noexcept;
 	};
 	
 
@@ -166,8 +172,20 @@ public:
 
 	MinecraftInputRenderContext(MinecraftClient* client) noexcept;
 	~MinecraftInputRenderContext() noexcept;
-	
-	void draw_text(const std::string& text, float x, float y, const Color& color) noexcept;
+
+	RectangleArea get_scaled_text_area(const std::string& text, float x, float y) noexcept;
+
+	void draw_square(float x, float y, float width, float height, const Color& color);
+	void draw_square(const RectangleArea& rect, const Color& color);
+	void draw_image(
+		const std::string& texture_path,
+		const RectangleArea& rect,
+		int uv_x, int uv_y,
+		int uv_width, int uv_height,
+		const Color& color
+	);
+	void draw_text(const std::string& text, float x, float y, const Color& color);
+	void draw_text_centered_in_rect(const std::string& text, const RectangleArea& rect, const Color& color);
 	
 	static void install() noexcept;
 };

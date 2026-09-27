@@ -1,4 +1,10 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
-class ButtonColors{};
+#include "minecraft_class/Color.hpp"
+
+struct ButtonColors
+{
+	Color hovered;
+	Color normal;
+};

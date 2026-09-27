@@ -6,6 +6,9 @@
 
 class Block
 {
+private:
+	void** vtable;
+	
 public:
 	static Block** get_block_table() noexcept;
 	Material* get_material() noexcept;
