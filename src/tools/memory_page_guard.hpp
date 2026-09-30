@@ -43,9 +43,9 @@ namespace tools
 			void* target_address_in_a_page,
 			unsigned long changed_page_count = 1
 		) noexcept:
-		start_addr(nullptr),
-		page_count(changed_page_count),
-		page_size(get_page_size())
+			start_addr(nullptr),
+			page_count(changed_page_count),
+			page_size(get_page_size())
 		{
 			if (page_count == 0) return;
 			start_addr = cal_start_address(target_address_in_a_page);
@@ -54,6 +54,16 @@ namespace tools
 				page_size * page_count,
 				after
 			);
+		}
+
+		uintptr_t get_start_address() const noexcept
+		{
+			return (uintptr_t)start_addr;
+		}
+
+		unsigned long get_page_count() const noexcept
+		{
+			return page_count;
 		}
 
 		~memory_page_guard() noexcept

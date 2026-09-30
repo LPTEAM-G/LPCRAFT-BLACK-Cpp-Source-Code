@@ -1,7 +1,7 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
-#include "minecraft_class/Vec3.hpp"
+#include "glm/type_vec3.hpp"
 
 struct BlockPos
 {
@@ -9,5 +9,5 @@ struct BlockPos
 	int y;
 	int z;
 
-	BlockPos(const Vec3& pos) noexcept;
+	BlockPos(const glm::vec3& pos) noexcept;
 };

@@ -6,11 +6,11 @@
 #include "minecraft_class/LevelRenderer.hpp"
 #include "minecraft_class/MinecraftClient.hpp"
 #include "minecraft_class/MinecraftInputHandler.hpp"
-#include "minecraft_class/render_context/MinecraftInputRenderContext.hpp"
 #include "minecraft_class/blocks/PodzolBlock.hpp"
 #include "minecraft_class/gui_components/OptionsItem.hpp"
 #include "minecraft_class/options_about/Options.hpp"
 #include "minecraft_class/options_about/PropertyFile.hpp"
+#include "minecraft_class/screen_about/ScreenView.hpp"
 #include "minecraft_class/sound_about/SoundEngine.hpp"
 #include "minecraft_class/blocks/GrassBlock.hpp"
 #include "minecraft_class/blocks/LiquidBlock.hpp"
@@ -40,10 +40,10 @@ void mod_install() noexcept
 	TouchGlyphButtonControl::install();
 	TouchTextButtonControl::install();
 	MinecraftInputHandler::install();
-	MinecraftInputRenderContext::install();
 	
 	//about screen
 	OptionsScreen::install();
+	ScreenView::install();
 	
 	AmbientOcclusionCalculator::install();
 

@@ -1,11 +1,11 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
-#include "minecraft_class/Vec3.hpp"
+#include "glm/type_vec3.hpp"
 
 struct AABB
 {
-	Vec3 min;
-	Vec3 max;
+	glm::vec3 min;
+	glm::vec3 max;
 	bool unknown;
 };

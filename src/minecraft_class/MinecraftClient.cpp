@@ -1,5 +1,6 @@
 //Copyright (c) 2026 LPTEAM
 #include "MinecraftClient.hpp"
+#include "glm/type_vec3.hpp"
 #include "hook_macro.hpp"
 #include "mce/TextureGroup.hpp"
 #include "minecraft_app.hpp"
@@ -10,7 +11,6 @@
 #include "minecraft_class/I18n.hpp"
 #include "minecraft_class/LocalPlayer.hpp"
 #include "minecraft_class/Minecraft.hpp"
-#include "minecraft_class/Vec3.hpp"
 #include "tools/to_string.hpp"
 #include <cstdint>
 #include <cstdlib>
@@ -109,9 +109,9 @@ std::string MinecraftClient::get_local_player_position_text()
 	if (local_player == nullptr) return "";
 
 	Entity* base = (Entity*)local_player;
-	const Vec3& pos = base->get_pos();
+	const glm::vec3& pos = base->get_pos();
 
-	Vec3 current_pos =
+	glm::vec3 current_pos =
 	{
 		pos.x,
 		base->get_AABB().min.y,

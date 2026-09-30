@@ -8,9 +8,8 @@
 #include <cstring>
 #include <unistd.h>
 
-
 extern "C" JNIEXPORT jint JNICALL
-JNI_OnLoad(JavaVM *vm, void *reserved)
+JNI_OnLoad(JavaVM* vm, void* reserved)
 {
 	LOGI("Shared Library liblpteam.so Loaded");
 	minecraft_app::init();

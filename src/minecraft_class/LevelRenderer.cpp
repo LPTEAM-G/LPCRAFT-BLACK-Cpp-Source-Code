@@ -1,8 +1,8 @@
 //Copyright (c) 2026 LPTEAM
 #include "LevelRenderer.hpp"
+#include "glm/type_vec3.hpp"
 #include "hook_macro.hpp"
 #include "minecraft_app.hpp"
-#include "minecraft_class/Vec3.hpp"
 #include <cstdint>
 
 float LevelRenderer::increased_clouds_height = 5.0f;
@@ -47,9 +47,9 @@ void LevelRenderer::renderClouds(LevelRenderer *this_ptr, float time)
 	this_ptr->get_player_camera_pos().y += increased_clouds_height;
 }
 
-Vec3& LevelRenderer::get_player_camera_pos() noexcept
+glm::vec3& LevelRenderer::get_player_camera_pos() noexcept
 {
-	return *(Vec3*)(((uintptr_t)this + 7080));
+	return *(glm::vec3*)(((uintptr_t)this + 7080));
 }
 
 void LevelRenderer::install() noexcept

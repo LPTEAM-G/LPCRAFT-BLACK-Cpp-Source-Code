@@ -12,6 +12,23 @@ namespace glm
 
 			value_type x;
 			value_type y;
+
+			tvec2()noexcept: x(), y() {}
+			
+			tvec2(value_type value) noexcept:
+				x(value),
+				y(value)
+			{}
+
+			tvec2(value_type _x, value_type _y) noexcept:
+				x(_x),
+				y(_y)
+			{}
+			
+			tvec2(const tvec2& other) noexcept:
+				x(other.x),
+				y(other.y)
+			{}
 		};
 	}
 

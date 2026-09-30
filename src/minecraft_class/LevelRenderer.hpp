@@ -1,9 +1,9 @@
 //Copyright (c) 2026 LPTEAM
 #pragma once
 
+#include "glm/type_vec3.hpp"
 #include "minecraft_class/Entity.hpp"
 #include "minecraft_class/FrustumCuller.hpp"
-#include "minecraft_class/Vec3.hpp"
 
 class LevelRenderer
 {
@@ -43,7 +43,7 @@ public:
 	);
 	static void renderClouds(LevelRenderer* this_ptr, float);
 
-	Vec3& get_player_camera_pos() noexcept;
+	glm::vec3& get_player_camera_pos() noexcept;
 
 	static void install() noexcept;
 };

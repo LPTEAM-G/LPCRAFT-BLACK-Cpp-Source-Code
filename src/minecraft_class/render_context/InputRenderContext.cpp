@@ -1,15 +1,15 @@
 //Copyright (c) 2026 LPTEAM
 #include "InputRenderContext.hpp"
+#include "glm/type_vec2.hpp"
 #include "minecraft_class/Color.hpp"
 #include "minecraft_class/RectangleArea.hpp"
-#include "minecraft_class/Vec2.hpp"
 #include <string>
 
 RectangleArea InputRenderContext::measure_text_for_button_virtual(
-	const Vec2& center_pos,
+	const glm::vec2& center_pos,
 	const std::string& text) noexcept
 {
-	using measure_text_for_button_virtual_type = void(*)(RectangleArea*, InputRenderContext*, const Vec2*, const std::string*);
+	using measure_text_for_button_virtual_type = void(*)(RectangleArea*, InputRenderContext*, const glm::vec2*, const std::string*);
 	measure_text_for_button_virtual_type measure_text_for_button_virtual_orig = (measure_text_for_button_virtual_type)(vtable[4]);
 	RectangleArea sret;
 	measure_text_for_button_virtual_orig(&sret, this, &center_pos, &text);
